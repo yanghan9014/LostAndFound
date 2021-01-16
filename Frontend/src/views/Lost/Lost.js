@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import ImageUploader from 'react-images-upload'
+import ImageUploader from "react-images-upload";
 
 import avatar from "assets/img/faces/marc.jpg";
 
@@ -22,7 +22,7 @@ const styles = {
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
-    marginBottom: "0"
+    marginBottom: "0",
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -31,24 +31,28 @@ const styles = {
     fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 };
 
 const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
-  const [imageUploaded, setImageUploaded] = useState('');
+  const [imageUploaded, setImageUploaded] = useState([]);
 
+  const reader = new FileReader();
   const uploaded = async (pictureFiles, pictureDataURLs) => {
-    console.log(pictureFiles.data)
-    await setImageUploaded(pictureFiles);
-  };
+    await console.log(pictureFiles);
+    // await setImageUploaded(pictureFiles);
 
-  useEffect(
-    ()=> console.log(imageUploaded)
-  , [imageUploaded]);
+    await reader.readAsDataURL(pictureFiles[pictureFiles.length - 1]);
+    // await setImageUploaded(reader);
+  };
+  reader.onload = () => {
+    setImageUploaded((state) => [...state, reader.result]);
+  };
+  useEffect(() => console.log(imageUploaded), [imageUploaded]);
   return (
     <div>
       <GridContainer>
@@ -56,7 +60,9 @@ export default function UserProfile() {
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Lost Item Information</h4>
-              <p className={classes.cardCategoryWhite}>Please provide as many details as possible</p>
+              <p className={classes.cardCategoryWhite}>
+                Please provide as many details as possible
+              </p>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -65,7 +71,7 @@ export default function UserProfile() {
                     labelText="Item Name"
                     id="lostItemName"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                   />
                 </GridItem>
@@ -74,7 +80,7 @@ export default function UserProfile() {
                     labelText="Where you found"
                     id="foundLocation"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                   />
                 </GridItem>
@@ -85,7 +91,7 @@ export default function UserProfile() {
                     labelText="Rewards"
                     id="rewards"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                   />
                 </GridItem>
@@ -96,11 +102,11 @@ export default function UserProfile() {
                     labelText="Descriptions"
                     id="lostItemDescriptions"
                     formControlProps={{
-                      fullWidth: true
+                      fullWidth: true,
                     }}
                     inputProps={{
                       multiline: true,
-                      rows: 5
+                      rows: 5,
                     }}
                   />
                 </GridItem>
@@ -116,12 +122,13 @@ export default function UserProfile() {
             <CardBody>
               <ImageUploader
                 withIcon={true}
-                className='foundItem'
-                buttonText='Upload'
+                className="foundItem"
+                buttonText="Upload"
                 onChange={uploaded}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                 maxFileSize={52428800}
-                label='upload one or more images of the item'
+                label="upload one or more images of the item"
+                withPreview={true}
               />
             </CardBody>
           </Card>
