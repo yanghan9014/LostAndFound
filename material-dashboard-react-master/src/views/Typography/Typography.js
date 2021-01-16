@@ -2,6 +2,8 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
 import Quote from "components/Typography/Quote.js";
 import Muted from "components/Typography/Muted.js";
 import Primary from "components/Typography/Primary.js";
@@ -14,7 +16,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 
 import db from "../../assets/mockDB.js"
-
+/*
 const styles = {
   typo: {
     paddingLeft: "25%",
@@ -50,25 +52,33 @@ const styles = {
     marginBottom: "3px",
     textDecoration: "none"
   }
-};
+};*/
 
+import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 const useStyles = makeStyles(styles);
 
 export default function TypographyPage() {
   const classes = useStyles();
   return (
     <>
-    {db.lostItem.map((item, id)=>
-      <Card>
-        <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
-          <p className={classes.cardCategoryWhite}>
-            {item.finder}
-          </p>
-        </CardHeader>
-      </Card>
-    )}
-    {
+      <GridContainer>
+        <GridItem xs={12} sm={6} md={5}>
+          {db.lostItem.map((item, id)=>
+            <Card>
+              <CardHeader color="primary">
+                <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
+                <p className={classes.cardCategoryWhite}>
+                  {item.place}
+                </p>
+              </CardHeader>
+              <CardBody>
+                <img src={item.photo}></img>
+              </CardBody>
+            </Card>
+          )}
+        </GridItem>
+      </GridContainer>
+    {/*
     <Card>
       <CardHeader color="primary">
         <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
@@ -171,7 +181,7 @@ export default function TypographyPage() {
           </h2>
         </div>
       </CardBody>
-    </Card>}
+    </Card>*/}
     </>
   );
 }
