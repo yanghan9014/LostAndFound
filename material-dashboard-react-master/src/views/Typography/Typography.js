@@ -13,6 +13,8 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 
+import db from "../../assets/mockDB.js"
+
 const styles = {
   typo: {
     paddingLeft: "25%",
@@ -55,6 +57,18 @@ const useStyles = makeStyles(styles);
 export default function TypographyPage() {
   const classes = useStyles();
   return (
+    <>
+    {db.lostItem.map((item, id)=>
+      <Card>
+        <CardHeader color="primary">
+          <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
+          <p className={classes.cardCategoryWhite}>
+            {item.finder}
+          </p>
+        </CardHeader>
+      </Card>
+    )}
+    {
     <Card>
       <CardHeader color="primary">
         <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
@@ -157,6 +171,7 @@ export default function TypographyPage() {
           </h2>
         </div>
       </CardBody>
-    </Card>
+    </Card>}
+    </>
   );
 }
