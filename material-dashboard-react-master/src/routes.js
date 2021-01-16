@@ -36,6 +36,8 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 
+import Account from "views/Account/Account.js";
+
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -107,6 +109,14 @@ const dashboardRoutes = [
     rtlName: "التطور للاحترافية",
     icon: Unarchive,
     component: UpgradeToPro,
+    layout: "/admin",
+  },
+  {
+    path: "/account",
+    name: "Account",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard,
+    component: Account,
     layout: "/admin",
   },
 ];
