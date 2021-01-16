@@ -80,12 +80,12 @@ const homeRoutes = [
     layout: "/admin",
   },
   {
-    path: "/lostItems",
+    path: "/LostItems",
     name: "Lost Items",
     rtlName: "طباعة",
     icon: LibraryBooks,
     component: LostItems,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/icons",
