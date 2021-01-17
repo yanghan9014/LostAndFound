@@ -10,6 +10,8 @@
     "@types/googlemaps": "3.39.6",
     "@types/markerclustererplus": "2.1.33",
     "ajv": "6.12.2",
+    "aws-sdk": "^2.828.0",
+    "bcrypt": "^5.0.0",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
     "history": "4.10.1",
