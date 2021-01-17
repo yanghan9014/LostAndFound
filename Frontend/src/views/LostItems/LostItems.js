@@ -52,7 +52,12 @@ const styles = {
     marginBottom: "3px",
     textDecoration: "none"
   }
-};*/
+};
+
+const styles = {
+  width: "10%",
+  height: "500px"
+}*/
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 const useStyles = makeStyles(styles);
@@ -61,9 +66,12 @@ export default function TypographyPage() {
   const classes = useStyles();
   return (
     <>
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={5}>
-          {db.lostItem.map((item, id)=>
+      <GridContainer style={{ aspectRatio: 1/2 }} onclick={()=>{
+        
+      }}>
+        {db.lostItem.map((item, id)=>
+          <GridItem xs={12} sm={6} md={3}>
+          
             <Card>
               <CardHeader color="primary">
                 <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
@@ -73,10 +81,14 @@ export default function TypographyPage() {
               </CardHeader>
               <CardBody>
                 <img src={item.photo}></img>
+                <p>
+                  Location: {item.place}<br></br>
+                  Time: {item.foundTime}
+                </p>
               </CardBody>
             </Card>
-          )}
-        </GridItem>
+          </GridItem>
+        )}
       </GridContainer>
     {/*
     <Card>
