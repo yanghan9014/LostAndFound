@@ -8,24 +8,24 @@ const Query = {
     });
   },
 
-  async users(parent, args, { Users }, info) {
+  async users(parent, args, { User }, info) {
     if (!args.query) {
-      return await Users.find();
+      return await User.find();
     }
-    return await Users.find({ name: args.query });
+    return await User.find({ name: args.query });
   },
 
-  async foundItems(parent, args, { FoundItems }, info) {
+  async foundItems(parent, args, { FoundItem }, info) {
     if (!args.query) {
-      return await FoundItems.find();
+      return await FoundItem.find();
     }
-    return await FoundItems.find({ name: args.query });
+    return await FoundItem.find({ name: args.query });
   },
-  async lostItems(parent, args, { LostItems }, info) {
+  async lostItems(parent, args, { LostItem }, info) {
     if (!args.query) {
-      return await LostItems.find();
+      return await LostItem.find();
     }
-    return await LostItems.find({ name: args.query });
+    return await LostItem.find({ name: args.query });
   },
 };
 
