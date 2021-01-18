@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -12,6 +12,10 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImageUploader from "react-images-upload";
+import { useQuery, useMutation, query } from '@apollo/react-hooks'
+import {
+  CREATE_FOUNDITEM_MUTATION
+} from 'graphql'
 
 const styles = {
   cardCategoryWhite: {
@@ -36,20 +40,53 @@ const useStyles = makeStyles(styles);
 
 export default function Found() {
   const classes = useStyles();
+  const [itemName, setItemName] = useState("");
+  const [foundLocation, setFoundLocation] = useState("");
+  const [currentLocation, setCurrentLocation] = useState("");
   const [imageUploaded, setImageUploaded] = useState("");
-  const [url, setUrl] = useState("");
+  const [descriptions, setDescriptions] = useState("");
+  const [addFoundItem] = useMutation(CREATE_FOUNDITEM_MUTATION)
   const reader = new FileReader();
   const uploaded = async (pictureFiles, pictureDataURLs) => {
-    await console.log(pictureFiles);
-    // await setImageUploaded(pictureFiles);
-
     await reader.readAsDataURL(pictureFiles[pictureFiles.length - 1]);
-    // await setImageUploaded(reader);
   };
   reader.onload = () => {
     setImageUploaded((state) => [...state, reader.result]);
   };
-  useEffect(() => console.log(imageUploaded), [imageUploaded]);
+
+  const changeFoundItemName = (event) => {
+    setItemName(event.target.value);
+  }
+  const changeFoundLocation = (event) => {
+    setFoundLocation(event.target.value);
+  }
+  const changeDescriptions = (event) => {
+    setDescriptions(event.target.value);
+  }
+  const changeCurrentLocation = (event) => {
+    setCurrentLocation(event.target.value);
+  }
+  const sendInfo = useCallback(
+    (e) => {
+
+      addFoundItem({
+        variables: {
+          name: itemName,
+          foundLocation: foundLocation,
+          currentLocation: currentLocation,
+          descriptions: descriptions,
+          images: imageUploaded,
+          isReturned: false
+        }
+      })
+
+      setItemName("");
+      setFoundLocation("");
+      setCurrentLocation("");
+      setDescriptions("");
+      setImageUploaded("");
+    }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded]
+  )
 
   return (
     <>
@@ -74,6 +111,7 @@ export default function Found() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changeFoundItemName}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={3}>
@@ -83,6 +121,17 @@ export default function Found() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changeFoundLocation}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={3}>
+                    <CustomInput
+                      labelText="Where is it now"
+                      id="currentLocation"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changeCurrentLocation}
                     />
                   </GridItem>
                 </GridContainer>
@@ -98,12 +147,13 @@ export default function Found() {
                         multiline: true,
                         rows: 10,
                       }}
+                      change={changeDescriptions}
                     />
                   </GridItem>
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary">Send</Button>
+                <Button color="primary" change={sendInfo}>Send</Button>
               </CardFooter>
             </Card>
           </GridItem>
