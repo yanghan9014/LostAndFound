@@ -1,88 +1,92 @@
-type Query{
-    users(query: String): [User!]!
-    messages(query: String): [Message!]!
-    foundItems(query: String): [FoundItem!]!
-    lostItems(query: String): [LostItem!]!
+type Query {
+  users(query: String): [User]!
+  messages(query: String): [Message!]!
+  foundItems(query: String): [FoundItem!]!
+  lostItems(query: String): [LostItem!]!
 }
 
-type Mutation{
-    createUser(data: createUserInput!): User!
-    createMessage(data: createMessageInput!): Message!
-    createFoundItem(data: createFoundItemInput!): FoundItem!
-    updateFoundItem(data: updateFoundItemInput!): FoundItem!
-    createLostItem(data: createLostItemInput!): LostItem!
-    updateLostItem(data: updateLostItemInput!): FoundItem!
+type Mutation {
+  createUser(data: createUserInput!): User!
+  createMessage(data: createMessageInput!): Message!
+  createFoundItem(data: createFoundItemInput!): FoundItem!
+  updateFoundItem(data: updateFoundItemInput!): FoundItem!
+  createLostItem(data: createLostItemInput!): LostItem!
+  updateLostItem(data: updateLostItemInput!): FoundItem!
 }
 
-type User{
-    name: String!
-    password: String!
-    email: String!
-    messages: [Message!]!
+type User {
+  name: String!
+  password: String!
+  email: String!
+  messages: [Message!]!
 }
 
-type Message{
-    senderName: String!
-    receiverName: String!
-    body: String!
+type Message {
+  senderName: String!
+  receiverName: String!
+  body: String!
 }
 
-type FoundItem{
-    id: ID!
-    name: String!
-    foundLocation: String!
-    currentLocation: String!
-    descriptions: String!
-    images: [String]
-    isReturned: Boolean!
+type FoundItem {
+  id: ID!
+  name: String!
+  foundLocation: String!
+  currentLocation: String!
+  descriptions: String!
+  images: [String]
+  isReturned: Boolean!
 }
 
-type LostItem{
-    id: ID!
-    name: String!
-    lostLocation: String!
-    descriptions: String!
-    images: [String]
-    isFound: Boolean!
-    rewards: String!
+type LostItem {
+  id: ID!
+  name: String!
+  lostLocation: String!
+  descriptions: String!
+  images: [String]
+  isFound: Boolean!
+  rewards: String!
 }
 
-input createUserInput{
-    name: String!
-    password: String!
-    email: String!
+input createUserInput {
+  name: String!
+  password: String!
+  email: String!
 }
 
-input createMessageInput{
-    senderName: String!
-    receiverName: String!
-    body: String!
+input createMessageInput {
+  senderName: String!
+  receiverName: String!
+  body: String!
 }
 
-input createFoundItemInput{
-    name: String!
-    foundLocation: String!
-    currentLocation: String!
-    descriptions: String!
-    images: [String]
-    isReturned: Boolean!
+input createFoundItemInput {
+  name: String!
+  foundLocation: String!
+  currentLocation: String!
+  descriptions: String!
+  images: [String]
+  isReturned: Boolean!
 }
 
-input updateFoundItemInput{
-    id: ID!
-    name: String!
+input updateFoundItemInput {
+  id: ID!
+  name: String!
+  isReturned: Boolean!
+  updatedReturnedState: Boolean!
 }
 
-input createLostItemInput{
-    name: String!
-    lostLocation: String!
-    descriptions: String!
-    images: [String]
-    isFound: Boolean!
-    rewards: String!
+input createLostItemInput {
+  name: String!
+  lostLocation: String!
+  descriptions: String!
+  images: [String]
+  isFound: Boolean!
+  rewards: String!
 }
 
-input updateLostItemInput{
-    id: ID!
-    name: String!
+input updateLostItemInput {
+  id: ID!
+  name: String!
+  isFound: Boolean!
+  updatedFoundState: Boolean!
 }

@@ -70,7 +70,7 @@ const homeRoutes = [
     icon: "content_paste",
     component: TableList,
     layout: "/admin",
-  },
+  },/*
   {
     path: "/typography",
     name: "Typography",
@@ -78,7 +78,7 @@ const homeRoutes = [
     icon: LibraryBooks,
     component: Typography,
     layout: "/admin",
-  },
+  },*/
   {
     path: "/LostItems",
     name: "Lost Items",

@@ -5,10 +5,9 @@ import Mutation from "./resolvers/Mutation";
 // import Subscription from "./resolvers/Subscription";
 
 const Message = require("./models/message");
-const User = require("./models/user")
-const FoundItem = require("./models/foundItem")
-const LostItem = require("./models/lostItem")
-
+const User = require("./models/user");
+const FoundItem = require("./models/foundItem");
+const LostItem = require("./models/lostItem");
 const mongoose = require("mongoose");
 
 if (!process.env.MONGO_URL) {
@@ -42,8 +41,9 @@ db.once("open", () => {
     context: {
       Message,
       User,
+      LostItem,
       FoundItem,
-      LostItem
+      pubsub,
     },
   });
 

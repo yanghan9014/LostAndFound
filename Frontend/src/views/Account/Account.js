@@ -14,6 +14,12 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
+// import bcrypt from "bcrypt";
+// const encode = async (password) => {
+//   const saltRounds = 10;
+//   const hash = await bcrypt.hash(password, saltRounds);
+//   return hash;
+// };
 
 const styles = {
   cardCategoryWhite: {
@@ -39,6 +45,20 @@ const useStyles = makeStyles(styles);
 export default function Account() {
   const classes = useStyles();
   const [haveAccount, setHaveAccount] = useState(true);
+  const [userName, setUsername] = useState("");
+  const [passWord, setPassWord] = useState("");
+  const [email, setEmail] = useState("");
+
+  const changeUserName = (event) => {
+    setUsername(event.target.value);
+  };
+  const changePassWord = (event) => {
+    setPassWord(event.target.value);
+  };
+  const changeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+  console.log(userName);
   return (
     <div>
       {haveAccount ? (
@@ -64,6 +84,7 @@ export default function Account() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changeUserName}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -73,6 +94,7 @@ export default function Account() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changePassWord}
                     />
                   </GridItem>
                 </GridContainer>
@@ -102,6 +124,17 @@ export default function Account() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changeUserName}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Password"
+                      id="Password"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changePassWord}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -111,58 +144,11 @@ export default function Account() {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      change={changeEmail}
                     />
                   </GridItem>
                 </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <CustomInput
-                      labelText="First Name"
-                      id="first-name"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <CustomInput
-                      labelText="Last Name"
-                      id="last-name"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="City"
-                      id="city"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="Country"
-                      id="country"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="Postal Code"
-                      id="postal-code"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                    />
-                  </GridItem>
-                </GridContainer>
+
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <InputLabel style={{ color: "#AAAAAA" }}>
