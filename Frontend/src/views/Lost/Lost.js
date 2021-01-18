@@ -77,8 +77,8 @@ export default function UserProfile() {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Where you found"
-                    id="foundLocation"
+                    labelText="Where you lost"
+                    id="lostLocation"
                     formControlProps={{
                       fullWidth: true,
                     }}
