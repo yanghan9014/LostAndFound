@@ -1,10 +1,14 @@
 require("dotenv-defaults").config();
 import { GraphQLServer, PubSub } from "graphql-yoga";
 import Query from "./resolvers/Query";
-// import Mutation from "./resolvers/Mutation";
+import Mutation from "./resolvers/Mutation";
 // import Subscription from "./resolvers/Subscription";
 
 const Message = require("./models/message");
+const User = require("./models/user")
+const FoundItem = require("./models/foundItem")
+const LostItem = require("./models/lostItem")
+
 const mongoose = require("mongoose");
 
 if (!process.env.MONGO_URL) {
@@ -26,18 +30,20 @@ db.on("error", (error) => {
 db.once("open", () => {
   console.log("MongoDB connected!");
 
-  const pubsub = new PubSub();
+  //const pubsub = new PubSub();
 
   const server = new GraphQLServer({
     typeDefs: "./src/schema.graphql",
     resolvers: {
       Query,
-      // Mutation,
+      Mutation
       // Subscription,
     },
     context: {
       Message,
-      pubsub,
+      User,
+      FoundItem,
+      LostItem
     },
   });
 
