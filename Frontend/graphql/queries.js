@@ -1,5 +1,11 @@
 import { gql } from 'apollo-boost'
 
+export {USERS_QUERY, 
+	MESSAGES_QUERY, 
+	FOUNDITEMS_QUERY, 
+	LOSTITEMS_QUERY
+}
+
 const USERS_QUERY = gql`
 	query users{
 		name

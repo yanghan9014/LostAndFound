@@ -88,6 +88,14 @@ const homeRoutes = [
     layout: "/admin",
   },
   {
+    path: "/FoundItems",
+    name: "Found Items",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: LostItems,
+    layout: "/admin",
+  },
+  {
     path: "/icons",
     name: "Icons",
     rtlName: "الرموز",
