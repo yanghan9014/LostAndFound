@@ -15,7 +15,7 @@ import ImageUploader from "react-images-upload";
 import { useQuery, useMutation, query } from '@apollo/react-hooks'
 import {
   CREATE_FOUNDITEM_MUTATION
-} from 'graphql'
+} from '../../graphql'
 
 const styles = {
   cardCategoryWhite: {

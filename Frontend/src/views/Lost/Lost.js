@@ -16,7 +16,7 @@ import ImageUploader from "react-images-upload";
 import { useQuery, useMutation, query } from '@apollo/react-hooks'
 import {
   CREATE_LOSTITEM_MUTATION
-} from 'graphql'
+} from '../../graphql'
 
 //import avatar from "assets/img/faces/marc.jpg";
 
@@ -127,7 +127,7 @@ export default function Lost() {
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    change={changeRewards}
+                    // change={changeRewards}
                   />
                 </GridItem>
               </GridContainer>

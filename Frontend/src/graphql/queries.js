@@ -38,3 +38,8 @@ const LOSTITEMS_QUERY = gql`
 		rewards
 	}
 `
+export {USERS_QUERY, 
+	MESSAGES_QUERY, 
+	FOUNDITEMS_QUERY, 
+	LOSTITEMS_QUERY
+}

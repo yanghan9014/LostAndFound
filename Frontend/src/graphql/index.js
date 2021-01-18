@@ -1,4 +1,4 @@
-export { MESSAGE_QUERY } from './queries'
+export { MESSAGES_QUERY } from './queries'
 export {CREATE_USER_MUTATION, 
 	CREATE_MESSAGE_MUTATION, 
 	CREATE_FOUNDITEM_MUTATION, 
