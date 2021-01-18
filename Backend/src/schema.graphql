@@ -18,7 +18,7 @@ type User {
   name: String!
   password: String!
   email: String!
-  messages: [Message!]!
+  messages: [Message]!
 }
 
 type Message {

@@ -42,8 +42,7 @@ db.once("open", () => {
       Message,
       User,
       LostItem,
-      FoundItem,
-      pubsub,
+      FoundItem
     },
   });
 
