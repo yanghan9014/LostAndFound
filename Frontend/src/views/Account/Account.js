@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -20,6 +20,11 @@ import avatar from "assets/img/faces/marc.jpg";
 //   const hash = await bcrypt.hash(password, saltRounds);
 //   return hash;
 // };
+import {
+  CREATE_USER_MUTATION
+} from '../../graphql'
+
+import {useMutation } from "@apollo/react-hooks";
 
 const styles = {
   cardCategoryWhite: {
@@ -40,17 +45,40 @@ const styles = {
   },
 };
 
+
+
 const useStyles = makeStyles(styles);
 
 export default function Account() {
   const classes = useStyles();
   const [haveAccount, setHaveAccount] = useState(true);
-  const [userName, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
   const [email, setEmail] = useState("");
+  const [addUser] = useMutation(CREATE_USER_MUTATION);
+  const handleUserSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
 
+      if (!userName || !passWord || !email) return
+
+      addUser({
+        variables: {
+          name: userName,
+          password: passWord,
+          email: email
+        }
+      })
+
+      setUserName('')
+      setPassWord('')
+      setEmail("")
+    },
+    [addUser, userName,passWord, email]
+  )
+  
   const changeUserName = (event) => {
-    setUsername(event.target.value);
+    setUserName(event.target.value);
   };
   const changePassWord = (event) => {
     setPassWord(event.target.value);
@@ -125,6 +153,7 @@ export default function Account() {
                         fullWidth: true,
                       }}
                       change={changeUserName}
+                      value={userName}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -135,6 +164,7 @@ export default function Account() {
                         fullWidth: true,
                       }}
                       change={changePassWord}
+                      value={passWord}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -145,6 +175,7 @@ export default function Account() {
                         fullWidth: true,
                       }}
                       change={changeEmail}
+                      value={email}
                     />
                   </GridItem>
                 </GridContainer>
@@ -169,7 +200,7 @@ export default function Account() {
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary">register</Button>
+                <Button color="primary" onClick={handleUserSubmit}>register</Button>
               </CardFooter>
             </Card>
           </GridItem>

@@ -61,6 +61,7 @@ export default function CustomInput(props) {
         id={id}
         {...inputProps}
         onChange={props.change}
+        value={props.value}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
