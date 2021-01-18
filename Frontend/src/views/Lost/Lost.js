@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
+//import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -13,8 +13,12 @@ import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImageUploader from "react-images-upload";
+import { useQuery, useMutation, query } from '@apollo/react-hooks'
+import {
+  CREATE_LOSTITEM_MUTATION
+} from 'graphql'
 
-import avatar from "assets/img/faces/marc.jpg";
+//import avatar from "assets/img/faces/marc.jpg";
 
 const styles = {
   cardCategoryWhite: {
@@ -37,22 +41,50 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function UserProfile() {
+export default function Lost() {
   const classes = useStyles();
+  const [itemName, setItemName] = useState("");
+  const [lostLocation, setLostLocation] = useState("");
   const [imageUploaded, setImageUploaded] = useState([]);
+  const [descriptions, setDescriptions] = useState("");
+  const [addLostItem] = useMutation(CREATE_LOSTITEM_MUTATION)
 
   const reader = new FileReader();
   const uploaded = async (pictureFiles, pictureDataURLs) => {
-    await console.log(pictureFiles);
-    // await setImageUploaded(pictureFiles);
-
     await reader.readAsDataURL(pictureFiles[pictureFiles.length - 1]);
-    // await setImageUploaded(reader);
   };
   reader.onload = () => {
     setImageUploaded((state) => [...state, reader.result]);
   };
-  useEffect(() => console.log(imageUploaded), [imageUploaded]);
+
+  const changeLostItemName = (event) => {
+    setItemName(event.target.value);
+  }
+  const changeLostLocation = (event) => {
+    setLostLocation(event.target.value);
+  }
+  const changeDescriptions = (event) => {
+    setDescriptions(event.target.value);
+  }
+  const sendInfo = useCallback(
+    (e) => {
+      addLostItem({
+        variables: {
+          name: itemName,
+          lostLocation: lostLocation,
+          descriptions: descriptions,
+          images: imageUploaded,
+          isFound: false
+        }
+      })
+
+      setItemName("");
+      setLostLocation("");
+      setDescriptions("");
+      setImageUploaded("");
+    }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded]
+  )
+
   return (
     <div>
       <GridContainer>
@@ -73,6 +105,7 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    change={changeLostItemName}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -82,6 +115,7 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    change={changeLostLocation}
                   />
                 </GridItem>
               </GridContainer>
@@ -93,6 +127,7 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    change={changeRewards}
                   />
                 </GridItem>
               </GridContainer>
@@ -108,12 +143,13 @@ export default function UserProfile() {
                       multiline: true,
                       rows: 5,
                     }}
+                    change={changeDescriptions}
                   />
                 </GridItem>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Send</Button>
+              <Button color="primary" change={sendInfo}>Send</Button>
             </CardFooter>
           </Card>
         </GridItem>
