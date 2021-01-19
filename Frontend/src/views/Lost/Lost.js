@@ -47,6 +47,7 @@ export default function Lost() {
   const [lostLocation, setLostLocation] = useState("");
   const [imageUploaded, setImageUploaded] = useState([]);
   const [descriptions, setDescriptions] = useState("");
+  const [rewards, setRewards] = useState("");
   const [addLostItem] = useMutation(CREATE_LOSTITEM_MUTATION)
 
   const reader = new FileReader();
@@ -66,8 +67,14 @@ export default function Lost() {
   const changeDescriptions = (event) => {
     setDescriptions(event.target.value);
   }
+  const changeRewards = (event) => {
+    setRewards(event.target.value);
+  }
   const sendInfo = useCallback(
     (e) => {
+
+      //if (!itemName || !lostLocation || !descriptions || !imageUploaded || !rewards) return
+
       addLostItem({
         variables: {
           name: itemName,
@@ -127,7 +134,7 @@ export default function Lost() {
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    // change={changeRewards}
+                    change={changeRewards}
                   />
                 </GridItem>
               </GridContainer>
@@ -149,7 +156,7 @@ export default function Lost() {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" change={sendInfo}>Send</Button>
+              <Button color="primary" onClick={sendInfo}>Send</Button>
             </CardFooter>
           </Card>
         </GridItem>

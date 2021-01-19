@@ -21,12 +21,13 @@ const Query = {
     }
     return await FoundItem.find({ name: args.query });
   },
+
   async lostItems(parent, args, { LostItem }, info) {
     if (!args.query) {
       return await LostItem.find();
     }
     return await LostItem.find({ name: args.query });
-  },
+  }
 };
 
 export { Query as default };

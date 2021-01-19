@@ -7,24 +7,20 @@ const LostItemSchema = new Schema({
 		type: String,
 		required: [true, 'Name field is required.']
 	},
-	foundLocation: {
+	lostLocation: {
 		type: String,
 		required: [true, 'FoundLocation field is required.']
     },
-    currentLocation:{
-        type: String,
-		required: [true, 'CurrentLocation field is required.']
-    },
-    descriptions:{
+    descriptions: {
         type: String,
 		required: [true, 'descriptions field is required.']
     },
-    images:{
+    images: {
         type: String,
 		required: [true, 'images field is required.']
     },
-    isFound:{
-        type:Boolean,
+    isFound: {
+        type: Boolean,
         required: [true, 'isFound field is required.']
     },
     rewards:{
