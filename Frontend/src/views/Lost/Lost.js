@@ -81,7 +81,8 @@ export default function Lost() {
           lostLocation: lostLocation,
           descriptions: descriptions,
           images: imageUploaded,
-          isFound: false
+          isFound: false,
+          rewards:rewards
         }
       })
 

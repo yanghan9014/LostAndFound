@@ -16,7 +16,7 @@ const LostItemSchema = new Schema({
 		required: [true, 'descriptions field is required.']
     },
     images: {
-        type: String,
+        type: [String],
 		required: [true, 'images field is required.']
     },
     isFound: {

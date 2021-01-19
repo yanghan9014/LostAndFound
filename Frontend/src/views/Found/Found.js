@@ -45,7 +45,7 @@ export default function Found() {
   const [currentLocation, setCurrentLocation] = useState("");
   const [imageUploaded, setImageUploaded] = useState("");
   const [descriptions, setDescriptions] = useState("");
-  const [addFoundItem] = useMutation(CREATE_FOUNDITEM_MUTATION)
+  const [addFoundItem] = useMutation(CREATE_FOUNDITEM_MUTATION);
   const reader = new FileReader();
   const uploaded = async (pictureFiles, pictureDataURLs) => {
     await reader.readAsDataURL(pictureFiles[pictureFiles.length - 1]);
@@ -70,7 +70,7 @@ export default function Found() {
     (e) => {
 
       if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) return
-
+      console.log(imageUploaded)
       addFoundItem({
         variables: {
           name: itemName,
