@@ -3,9 +3,11 @@ const Query = {
     if (!args.query) {
       return await Message.find();
     }
-    return await Message.find({
+    let msg=await Message.find({
       $or: [{ senderName: args.query }, { receiverName: args.query }],
     });
+    if (msg===undefined) return null
+    else return msg
   },
 
   async users(parent, args, { User }, info) {

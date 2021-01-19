@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -12,7 +12,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { CREATE_MESSAGE_MUTATION, MESSAGES_QUERY } from "../../graphql";
 import avatar from "assets/img/faces/marc.jpg";
 
 const styles = {
@@ -39,14 +40,50 @@ const useStyles = makeStyles(styles);
 export default function Profile(props) {
   const classes = useStyles();
   console.log(props.data);
+  const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
+    variables: { query: props.data.users[0].name },
+    errorPolicy: 'all' 
+  });
+  console.log(props.data)
+  // console.log(data);
+  const Messages =(message)=>{
+    if (message===null){  
+       return(
+       <GridItem xs={12} sm={12} md={4}>
+        <Card plain>
+          <CardBody plain>
+            <p >
+              No messages
+            </p>
+          </CardBody>
+        </Card>
+      </GridItem>);
+    }
+    return (     
+    <GridItem xs={12} sm={12} md={4}>
+      <Card plain>
+        <CardBody plain>
+          <p >
+            from:{message.senderName}
+          </p>
+          <p >
+            to:{message.receiverName}
+          </p>
+          <p >
+            message:{message.body}
+          </p>
+        </CardBody>
+      </Card>
+    </GridItem>)
+  }
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
-              <p className={classes.cardCategoryWhite}>Complete your profile</p>
+              <h4 className={classes.cardTitleWhite}>Personal Page</h4>
+              <p className={classes.cardCategoryWhite}>You can send mails to others or check your mails here </p>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -75,7 +112,7 @@ export default function Profile(props) {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="First Name"
+                    labelText="TO"
                     id="first-name"
                     formControlProps={{
                       fullWidth: true,
@@ -84,65 +121,25 @@ export default function Profile(props) {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Last Name"
+                    labelText="text"
                     id="last-name"
                     formControlProps={{
                       fullWidth: true,
                     }}
                   />
                 </GridItem>
+                <CardFooter>
+                  <Button color="primary">SEND</Button>
+                </CardFooter>
               </GridContainer>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="City"
-                    id="city"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
-                  <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                    id="about-me"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5,
-                    }}
-                  />
-                </GridItem>
+                <h1>Mail Box</h1>
+                {data!==undefined ?data.messages.map((message)=>Messages(message)):<div></div>}
               </GridContainer>
             </CardBody>
-            <CardFooter>
-              <Button color="primary">Update Profile</Button>
-            </CardFooter>
           </Card>
         </GridItem>
+
       </GridContainer>
     </div>
   );

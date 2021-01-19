@@ -20,7 +20,7 @@ export default function Account() {
   });
   // if (name !== "") refetch();
   // console.log(data);
-  
+  console.log(data)
   return (
     <>
       {login ? (

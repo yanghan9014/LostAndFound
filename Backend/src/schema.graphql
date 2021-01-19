@@ -1,6 +1,6 @@
 type Query {
   users(query: String): [User]!
-  messages(query: String): [Message!]!
+  messages(query: String): [Message]
   foundItems(query: String): [FoundItem]!
   lostItems(query: String): [LostItem!]!
   login(query: login!): isUser!

@@ -1,11 +1,5 @@
 import { gql } from "apollo-boost";
 
-export {USERS_QUERY, 
-	MESSAGES_QUERY, 
-	FOUNDITEMS_QUERY, 
-	LOSTITEMS_QUERY
-}
-
 const USERS_QUERY = gql`
   query users($query: String) {
     users(query: $query) {
@@ -21,11 +15,13 @@ const USERS_QUERY = gql`
 `;
 
 const MESSAGES_QUERY = gql`
-  query messages {
+  query messages($query: String) {
+    messages(query: $query){
     senderName
     receiverName
     body
   }
+}
 `;
 
 const FOUNDITEMS_QUERY = gql`
