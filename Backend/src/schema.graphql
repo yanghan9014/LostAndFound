@@ -1,7 +1,7 @@
 type Query {
   users(query: String): [User]!
   messages(query: String): [Message!]!
-  foundItems(query: String): [FoundItem!]!
+  foundItems(query: String): [FoundItem]!
   lostItems(query: String): [LostItem!]!
 }
 
@@ -28,7 +28,7 @@ type Message {
 }
 
 type FoundItem {
-  id: ID!
+  _id: ID!
   name: String!
   foundLocation: String!
   currentLocation: String!
@@ -38,7 +38,7 @@ type FoundItem {
 }
 
 type LostItem {
-  id: ID!
+  _id: ID!
   name: String!
   lostLocation: String!
   descriptions: String!
@@ -69,7 +69,7 @@ input createFoundItemInput {
 }
 
 input updateFoundItemInput {
-  id: ID!
+  _id: ID!
   name: String!
   isReturned: Boolean!
   updatedReturnedState: Boolean!
@@ -85,7 +85,7 @@ input createLostItemInput {
 }
 
 input updateLostItemInput {
-  id: ID!
+  _id: ID!
   name: String!
   isFound: Boolean!
   updatedFoundState: Boolean!
