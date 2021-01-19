@@ -67,12 +67,14 @@ const client = new ApolloClient({
 const hist = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/admin" component={Admin} />
-      <Route path="/rtl" component={RTL} />
-      <Redirect from="/" to="/admin/home" />
-    </Switch>
-  </Router>,
+	<ApolloProvider client={client}>
+		<Router history={hist}>
+			<Switch>
+			<Route path="/admin" component={Admin} />
+			<Route path="/rtl" component={RTL} />
+			<Redirect from="/" to="/admin/home" />
+			</Switch>
+		</Router>
+	</ApolloProvider>,
   document.getElementById("root")
 );

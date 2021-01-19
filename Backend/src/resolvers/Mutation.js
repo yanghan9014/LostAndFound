@@ -1,63 +1,55 @@
 const Mutation = {
-  createMessage(parent, args, { Message, pubsub }, info) {
-    const message = {
+  createUser(parent, args, { User }, info) {
+    const newUser = {
       ...args.data
     }
 
-    Message.collection.insert(message)
+    User.collection.insert(newUser)
 
-    pubsub.publish('message', {
-      message: {
-        mutation: 'CREATED',
-        data: message
-      }
-    })
-
-    return message
-
+    return newUser
   },
-  updateMessage(parent, args, {Message, pubsub}){
+  createMessage(parent, args, { Message }, info){
     const newMsg = {
-      senderName: args.data.senderName,
-      receiverName: args.data.receiverName,
-      body: args.data.newBody
+      ...args.data
     }
+    Message.collection.insert(newMsg)
+    return newMsg
+  },
+  createFoundItem(parent, args, { FoundItem }){
+    const newFoundItem = {
+      ...args.data
+    }
+    FoundItem.collection.insert(newFoundItem)
+    return newFoundItem
+  },
+  updateFoundItem(parent, args, { FoundItem }){
+    const [id, name] = args.data
+    const targetFoundItem = FoundItem.collection.find({"_id": id, "name": name})
 
-    Message.collection.findOneAndReplace(
-      {"senderName": args.data.senderName, "receiverName": args.data.receiverName, "body": args.data.body},
-      newMsg
+    FoundItem.collection.findOneAndUpdate(
+      targetFoundItem,
+      {isReturned: !targetFoundItem.isReturned}
     )
 
-    pubsub.publish('message', {
-      message: {
-        mutation: 'UPDATED',
-        data: newMsg
-      }
-    })
-
-    return newMsg
-
+    return targetFoundItem
   },
-  async deleteMessage(parent, args, { Message, pubsub }, info) {
-    const deletedMsg = {
+  createLostItem(parent, args, { LostItem }){
+    const newLostItem = {
       ...args.data
     }
+    LostItem.collection.insert(newLostItem)
+    return newLostItem
+  },
+  updateLostItem(parent, args, { LostItem }){
+    const [id, name] = args.data
+    const targetLostItem = LostItem.collection.find({"_id": id, "name": name})
 
-    try{
-      Message.collection.deleteOne(deletedMsg)
-    }
-    catch{
-      console.log('cannot delete the assigned message')
-    }
+    FoundItem.collection.findOneAndUpdate(
+      targetLostItem,
+      {isFound: !targetLostItem.isFound}
+    )
 
-    pubsub.publish('message', {
-      message: {
-        mutation: 'DELETED',
-        data: deletedMsg
-      }
-    })
-
-    return deletedMsg
+    return targetLostItem
   }
 }
 
