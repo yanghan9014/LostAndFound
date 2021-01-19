@@ -69,6 +69,8 @@ export default function Found() {
   const sendInfo = useCallback(
     (e) => {
 
+      if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) return
+
       addFoundItem({
         variables: {
           name: itemName,
@@ -85,6 +87,7 @@ export default function Found() {
       setCurrentLocation("");
       setDescriptions("");
       setImageUploaded("");
+
     }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded]
   )
 
@@ -153,7 +156,7 @@ export default function Found() {
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary" change={sendInfo}>Send</Button>
+                <Button color="primary" onClick={sendInfo}>Send</Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -168,6 +171,7 @@ export default function Found() {
           imgExtension={[".jpg", ".gif", ".png", ".gif"]}
           maxFileSize={52428800}
           label="upload one or more images of the item"
+          withPreview={true}
         />
       </div>
     </>

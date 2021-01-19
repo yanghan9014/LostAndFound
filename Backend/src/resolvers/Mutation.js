@@ -19,6 +19,7 @@ const Mutation = {
     const newFoundItem = {
       ...args.data
     }
+    console.log('hi')
     FoundItem.collection.insert(newFoundItem)
     return newFoundItem
   },
