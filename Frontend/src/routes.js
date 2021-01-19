@@ -30,6 +30,7 @@ import FoundSheet from "views/Found/Found.js";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
 import LostItems from "views/LostItems/LostItems.js";
+import FoundItems from "views/FoundItems/FoundItems.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
@@ -92,7 +93,7 @@ const homeRoutes = [
     name: "Found Items",
     rtlName: "طباعة",
     icon: LibraryBooks,
-    component: LostItems,
+    component: FoundItems,
     layout: "/admin",
   },
   {
