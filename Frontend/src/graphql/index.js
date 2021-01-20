@@ -1,8 +1,8 @@
-/*export { USERS_QUERY, 
+export { USERS_QUERY, 
 	MESSAGES_QUERY, 
 	FOUNDITEMS_QUERY, 
 	LOSTITEMS_QUERY 
-} from './queries'*/
+} from './queries'
 
 export {CREATE_USER_MUTATION, 
 	CREATE_MESSAGE_MUTATION, 

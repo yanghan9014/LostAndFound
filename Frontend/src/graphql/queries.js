@@ -34,18 +34,15 @@ const FOUNDITEMS_QUERY = gql`
 `
 
 const LOSTITEMS_QUERY = gql`
-	query lostItems{
-		id
-		name
-		lostLocation
-		descriptions
-		images
-		isFound
-		rewards
+	query lostItems($query: String){
+		lostItems(query:$query){
+			_id
+			name
+			lostLocation
+			descriptions
+			images
+			isFound
+			rewards
+		}
 	}
 `
-export {USERS_QUERY, 
-	MESSAGES_QUERY, 
-	FOUNDITEMS_QUERY, 
-	LOSTITEMS_QUERY
-}

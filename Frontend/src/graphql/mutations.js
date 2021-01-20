@@ -58,8 +58,7 @@ const CREATE_FOUNDITEM_MUTATION = gql`
 			}
 		) {
 			_id
-			name
-			
+			name			
 			isReturned
 		}
 	}

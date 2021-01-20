@@ -17,17 +17,23 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 
-import db from "../../assets/mockDB.js"
-import { Switch, Route, Redirect, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import {
+  FOUNDITEMS_QUERY
+} from '../../graphql'
+//import db from "../../assets/mockDB.js"
+/*import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";*/
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { useQuery } from '@apollo/react-hooks';
+
 //import { Redirect } from "react-router-dom";
 const useStyles = makeStyles(styles);
 
 export default function TypographyPage() {
   const [expand, setExpand] = useState(false)
   const [select, setSelect] = useState(-1)
+	const { loading, error, data } = useQuery(FOUNDITEMS_QUERY)
   const classes = useStyles()
   return (
     <>
@@ -62,26 +68,29 @@ export default function TypographyPage() {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    Item name:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.itemName}})
+                    Item name:  {data.map((item, id)=>{
+                      if(id === select){return item.name}})
                     }<br></br>
-                    Found Location:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.place}})
+                    Found Location:  {data.map((item, id)=>{
+                      if(id === select){return item.foundLocation}})
                     }<br></br>
-                    Found Time:  {db.lostItem.map((item, id)=>{
+                    Found Time:  {/*data.map((item, id)=>{
                       if(id === select){return item.foundTime}})
-                    }<br></br>
-                    Finder:  {db.lostItem.map((item, id)=>{
+                    */ }<br></br>
+                    Descriptions:  {data.map((item, id)=>{
+                      if(id === select){return item.descriptions}})
+                    }<br></br><br></br>
+                    Finder:  {/*data.map((item, id)=>{
                       if(id === select){return item.finder}})
-                    }<br></br>
-                    Finder contact:  {db.lostItem.map((item, id)=>{
+                    */}<br></br>
+                    Finder contact:  {data.map((item, id)=>{
                       if(id === select){return item.email}})
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
-                    <img scource={db.lostItem.map((item, id)=>{
-                      if(id === select){return item.photo}})
+                    <img src={data.map((item, id)=>{
+                      if(id === select){return item.images}})
                     }/>
                     <br></br>
 
@@ -100,7 +109,7 @@ export default function TypographyPage() {
       </>
       :
       <GridContainer>
-        {db.lostItem.map((item, id)=>
+        {data.map((item, id)=>
         <>
           <GridItem xs={12} sm={6} md={3}>
               <Card onClick={()=> { 
