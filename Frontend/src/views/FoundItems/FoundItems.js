@@ -68,28 +68,28 @@ export default function TypographyPage() {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    Item name:  {data.map((item, id)=>{
+                    Item name:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.name}})
                     }<br></br>
-                    Found Location:  {data.map((item, id)=>{
+                    Found Location:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.foundLocation}})
                     }<br></br>
-                    Found Time:  {/*data.map((item, id)=>{
+                    Found Time:  {/*data.foundItems.map((item, id)=>{
                       if(id === select){return item.foundTime}})
                     */ }<br></br>
-                    Descriptions:  {data.map((item, id)=>{
+                    Descriptions:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.descriptions}})
                     }<br></br><br></br>
-                    Finder:  {/*data.map((item, id)=>{
+                    Finder:  {/*data.foundItems.map((item, id)=>{
                       if(id === select){return item.finder}})
                     */}<br></br>
-                    Finder contact:  {data.map((item, id)=>{
+                    Finder contact:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.email}})
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
-                    <img src={data.map((item, id)=>{
+                    <img src={data.foundItems.map((item, id)=>{
                       if(id === select){return item.images}})
                     }/>
                     <br></br>
@@ -109,7 +109,7 @@ export default function TypographyPage() {
       </>
       :
       <GridContainer>
-        {data.map((item, id)=>
+        {data.foundItems.map((item, id)=>
         <>
           <GridItem xs={12} sm={6} md={3}>
               <Card onClick={()=> { 

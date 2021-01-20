@@ -23,13 +23,16 @@ const MESSAGES_QUERY = gql`
 `
 
 const FOUNDITEMS_QUERY = gql`
-	query foundItems{
-		id
-		name
-		foundLocation
-		descriptions
-		images
-		isReturned
+	query foundItems($query: String){
+		foundItems(query:$query){
+			_id
+			name
+			foundLocation
+			currentLocation
+			descriptions
+			images
+			isReturned
+		}
 	}
 `
 

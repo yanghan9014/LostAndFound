@@ -98,7 +98,7 @@ export default function TypographyPage() {
               <CardFooter>
                 <Button color="primary" onClick={()=>{
                   console.log("Hello")
-                }}>Send</Button>
+                }}>Claim</Button>
               </CardFooter>
             </Card>
           </GridItem>}
