@@ -36,6 +36,8 @@ type FoundItem {
   descriptions: String!
   images: [String]
   isReturned: Boolean!
+  foundTime: String!
+  founder: String!
 }
 
 type LostItem {
@@ -46,6 +48,8 @@ type LostItem {
   images: [String]
   isFound: Boolean!
   rewards: String!
+  lostTime: String!
+  loster: String!
 }
 type isUser {
   Login: Boolean
@@ -70,6 +74,8 @@ input createFoundItemInput {
   descriptions: String!
   images: [String]
   isReturned: Boolean!
+  foundTime: String!
+  founder: String!
 }
 
 input updateFoundItemInput {
@@ -77,6 +83,8 @@ input updateFoundItemInput {
   name: String!
   isReturned: Boolean!
   updatedReturnedState: Boolean!
+  foundTime: String!
+  founder: String!
 }
 
 input createLostItemInput {
@@ -86,6 +94,8 @@ input createLostItemInput {
   images: [String]
   isFound: Boolean!
   rewards: String!
+  lostTime: String!
+  loster: String!
 }
 
 input updateLostItemInput {
@@ -93,6 +103,8 @@ input updateLostItemInput {
   name: String!
   isFound: Boolean!
   updatedFoundState: Boolean!
+  lostTime: String!
+  loster: String!
 }
 input login {
   name: String!

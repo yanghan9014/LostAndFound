@@ -5,7 +5,7 @@ const USERS_QUERY = gql`
     users(query: $query) {
       name
       email
-      messages{
+      messages {
         senderName
         receiverName
         body
@@ -16,12 +16,12 @@ const USERS_QUERY = gql`
 
 const MESSAGES_QUERY = gql`
   query messages($query: String) {
-    messages(query: $query){
-    senderName
-    receiverName
-    body
+    messages(query: $query) {
+      senderName
+      receiverName
+      body
+    }
   }
-}
 `;
 
 const FOUNDITEMS_QUERY = gql`
