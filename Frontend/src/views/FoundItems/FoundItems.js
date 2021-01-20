@@ -39,14 +39,14 @@ export default function TypographyPage() {
 
   const updateInfo = useCallback(
     (e) => {
-      const foundItem = data.foundItems.map((item, id)=>{
-        if(id === select){return item}})
+      const foundItem = data.foundItems[select]
 
+      console.log(foundItem)
       updateFoundItem({
         variables: {
           _id: foundItem._id,
           name: foundItem.name,
-          isFound: !foundItem.isFound
+          isReturned: foundItem.isReturned
         }
       })
 
@@ -89,29 +89,22 @@ export default function TypographyPage() {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    Item name:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.name}})
+                    Item name:  {data.foundItems[select].name
                     }<br></br>
-                    Found Location:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.foundLocation}})
+                    Found Location:  {data.foundItems[select].foundLocation
                     }<br></br>
-                    Found Time:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.foundTime}})
+                    Found Time:  {data.foundItems[select].foundTime
                     }<br></br>
-                    Descriptions:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.descriptions}})
+                    Descriptions:  {data.foundItems[select].descriptions
                     }<br></br><br></br>
-                    Finder:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.finder}})
+                    Finder:  {data.foundItems[select].finder
                     }<br></br>
-                    Finder contact:  {data.foundItems.map((item, id)=>{
-                      if(id === select){return item.email}})
+                    Finder contact:  {data.foundItems[select].email
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
-                    <img src={data.foundItems.map((item, id)=>{
-                      if(id === select){return item.images}})
+                    <img src={data.foundItems[select].images
                     }/>
                     <br></br>
 
@@ -139,15 +132,15 @@ export default function TypographyPage() {
                 console.log(id)
               }}>
                 <CardHeader color="primary">
-                  <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
+                  <h4 className={classes.cardTitleWhite}>{item.name}</h4>
                   <p className={classes.cardCategoryWhite}>
-                    {item.place}
+                    {item.foundLocation}
                   </p>
                 </CardHeader>
                 <CardBody>
-                  <img src={item.photo}></img>
+                  <img src={item.images[0]}></img>
                   <p>
-                  Location: {item.place}<br></br>
+                  Location: {item.foundLocation}<br></br>
                   Time: {item.foundTime}
                 </p>
                 </CardBody>

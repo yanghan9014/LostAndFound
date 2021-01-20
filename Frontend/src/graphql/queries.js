@@ -33,6 +33,8 @@ const FOUNDITEMS_QUERY = gql`
 			descriptions
 			images
 			isReturned
+      foundTime
+      founder
 		}
 	}
 `

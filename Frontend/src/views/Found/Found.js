@@ -40,6 +40,8 @@ const useStyles = makeStyles(styles);
 
 export default function Found() {
   const classes = useStyles();
+  const [founderName, setFounderName] = useState("");
+  const [foundTime, setFoundTime] = useState("");
   const [itemName, setItemName] = useState("");
   const [foundLocation, setFoundLocation] = useState("");
   const [currentLocation, setCurrentLocation] = useState("");
@@ -54,6 +56,12 @@ export default function Found() {
     setImageUploaded((state) => [...state, reader.result]);
   };
 
+  const changeFounderName = (event) => {
+    setFounderName(event.target.value);
+  }
+  const changeFoundTime = (event) => {
+    setFoundTime(event.target.value);
+  }
   const changeFoundItemName = (event) => {
     setItemName(event.target.value);
   }
@@ -82,7 +90,9 @@ export default function Found() {
           currentLocation: currentLocation,
           descriptions: descriptions,
           images: imageUploaded,
-          isReturned: false
+          isReturned: false,
+          foundTime: foundTime,
+          founder: founderName
         }
       })
 
@@ -92,7 +102,7 @@ export default function Found() {
       setDescriptions("");
       setImageUploaded("");
 
-    }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded]
+    }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded, foundTime, founderName]
   )
 
   return (
@@ -111,7 +121,17 @@ export default function Found() {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Your Name"
+                      id="founderName"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changeFounderName}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Item Name"
                       id="foundItemName"
@@ -121,7 +141,19 @@ export default function Found() {
                       change={changeFoundItemName}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="When you found"
+                      id="foundTime"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changeFoundTime}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Where you found"
                       id="foundLocation"
@@ -131,7 +163,7 @@ export default function Found() {
                       change={changeFoundLocation}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Where is it now"
                       id="currentLocation"

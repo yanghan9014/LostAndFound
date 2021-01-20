@@ -45,7 +45,8 @@ export default function TypographyPage() {
         })}
       <Route path={`/FoundItems/1`}>
         {singleItem_display(1)}
-      </Route>*/}
+      </Route>*/
+      console.log(data)}
       {
       (data === undefined)? console.log("data undefined") :
       (expand)?
@@ -68,26 +69,20 @@ export default function TypographyPage() {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    Item name:  {data.lostItems.map((item, id)=>{
-                      if(id === select){return item.name}})
+                    Item name:  {data.lostItems[select].name
                     }<br></br>
-                    Lost Location:  {data.lostItems.map((item, id)=>{
-                      if(id === select){return item.lostLocation}})
+                    Lost Location:  {data.lostItems[select].lostLocation
                     }<br></br>
-                    Lost Time:  {data.lostItems.map((item, id)=>{
-                      if(id === select){return item.foundTime}})
+                    Lost Time:  {data.lostItems[select].lostTime
                     }<br></br>
-                    Finder:  {data.lostItems.map((item, id)=>{
-                      if(id === select){return item.finder}})
+                    Finder:  {data.lostItems[select].finder
                     }<br></br>
-                    Finder contact:  {data.lostItems.map((item, id)=>{
-                      if(id === select){return item.email}})
+                    Finder contact:  {data.lostItems[select].email
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
-                    <img src={data.lostItems.map((item, id)=>{
-                      if(id === select){return item.images[0]}})
+                    <img src={data.lostItems[select].images[0]
                     }></img>
                     <br></br>
 
