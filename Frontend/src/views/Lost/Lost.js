@@ -43,6 +43,8 @@ const useStyles = makeStyles(styles);
 
 export default function Lost() {
   const classes = useStyles();
+  const [losterName, setLosterName] = useState("");
+  const [lostTime, setLostTime] = useState("");
   const [itemName, setItemName] = useState("");
   const [lostLocation, setLostLocation] = useState("");
   const [imageUploaded, setImageUploaded] = useState([]);
@@ -58,6 +60,12 @@ export default function Lost() {
     setImageUploaded((state) => [...state, reader.result]);
   };
 
+  const changeLosterName = (event) => {
+    setLosterName(event.target.value);
+  }
+  const changeLostTime = (event) => {
+    setLostTime(event.target.value);
+  }
   const changeLostItemName = (event) => {
     setItemName(event.target.value);
   }
@@ -73,8 +81,11 @@ export default function Lost() {
   const sendInfo = useCallback(
     (e) => {
 
-      //if (!itemName || !lostLocation || !descriptions || !imageUploaded || !rewards) return
-
+      if (!losterName || !lostTime || !itemName || !lostLocation || !descriptions || !imageUploaded || !rewards)
+      {
+        alert("Please fill in all entries")
+        return
+      }
       addLostItem({
         variables: {
           name: itemName,
@@ -82,7 +93,9 @@ export default function Lost() {
           descriptions: descriptions,
           images: imageUploaded,
           isFound: false,
-          rewards:rewards
+          rewards:rewards,
+          loster: losterName,
+          lostTime: lostTime
         }
       })
 
@@ -90,7 +103,7 @@ export default function Lost() {
       setLostLocation("");
       setDescriptions("");
       setImageUploaded("");
-    }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded]
+    }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded, rewards, losterName, lostTime]
   )
 
   return (
@@ -105,7 +118,18 @@ export default function Lost() {
               </p>
             </CardHeader>
             <CardBody>
-              <GridContainer>
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    labelText="Your Name"
+                    id="losterName"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    change={changeLosterName}
+                  />
+                </GridItem>
+                
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
                     labelText="Item Name"
@@ -114,6 +138,16 @@ export default function Lost() {
                       fullWidth: true,
                     }}
                     change={changeLostItemName}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    labelText="When you lost"
+                    id="lostTime"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    change={changeLostTime}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -170,7 +204,7 @@ export default function Lost() {
                 buttonText="Upload"
                 onChange={uploaded}
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={52428800}
+                maxFileSize={524288000}
                 label="upload one or more images of the item"
                 withPreview={true}
               />

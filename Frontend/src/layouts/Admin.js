@@ -17,13 +17,14 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo.png";
+import Account from "../views/Account/Account"
 
 let ps;
 
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/admin" && prop.path !== "/account") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -34,6 +35,12 @@ const switchRoutes = (
       }
       return null;
     })}
+    <Route 
+      path="/admin/account"
+      render={(props)=>(
+        <Account {...props} isAuthed={true}/>
+      )}
+    />
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );

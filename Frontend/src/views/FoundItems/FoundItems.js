@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -17,21 +17,46 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 
-import db from "../../assets/mockDB.js"
-import { Switch, Route, Redirect, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import {
+  FOUNDITEMS_QUERY, UPDATE_FOUNDITEM_MUTATION
+} from '../../graphql'
+//import db from "../../assets/mockDB.js"
+/*import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";*/
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
 //import { Redirect } from "react-router-dom";
 const useStyles = makeStyles(styles);
 
 export default function TypographyPage() {
   const [expand, setExpand] = useState(false)
   const [select, setSelect] = useState(-1)
+  const { loading, error, data } = useQuery(FOUNDITEMS_QUERY)
+  const [updateFoundItem] = useMutation(UPDATE_FOUNDITEM_MUTATION)
   const classes = useStyles()
+
+  const updateInfo = useCallback(
+    (e) => {
+      const foundItem = data.foundItems[select]
+
+      console.log(foundItem)
+      updateFoundItem({
+        variables: {
+          _id: foundItem._id,
+          name: foundItem.name,
+          isReturned: foundItem.isReturned
+        }
+      })
+
+      setSelect(-1);
+      setExpand(false);
+    }, [updateFoundItem, data, select]
+  )
   return (
     <>
-      {/*<Switch>
+      {console.log(data)/*<Switch>
         {db.lostItem.map((item, _id)=>{
           return(
           <Route path={`/${_id}`}>
@@ -42,7 +67,9 @@ export default function TypographyPage() {
       <Route path={`/FoundItems/1`}>
         {singleItem_display(1)}
       </Route>*/}
-      {(expand)?
+      {
+      (data === undefined)? console.log("data undefined") :
+      (expand)?
       <>
       <Button color="primary" onClick={()=>{
         setExpand(false)
@@ -62,26 +89,22 @@ export default function TypographyPage() {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    Item name:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.itemName}})
+                    Item name:  {data.foundItems[select].name
                     }<br></br>
-                    Found Location:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.place}})
+                    Found Location:  {data.foundItems[select].foundLocation
                     }<br></br>
-                    Found Time:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.foundTime}})
+                    Found Time:  {data.foundItems[select].foundTime
                     }<br></br>
-                    Finder:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.finder}})
+                    Descriptions:  {data.foundItems[select].descriptions
+                    }<br></br><br></br>
+                    Finder:  {data.foundItems[select].finder
                     }<br></br>
-                    Finder contact:  {db.lostItem.map((item, id)=>{
-                      if(id === select){return item.email}})
+                    Finder contact:  {data.foundItems[select].email
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
-                    <img scource={db.lostItem.map((item, id)=>{
-                      if(id === select){return item.photo}})
+                    <img src={data.foundItems[select].images
                     }/>
                     <br></br>
 
@@ -91,8 +114,8 @@ export default function TypographyPage() {
               </CardBody>
               <CardFooter>
                 <Button color="primary" onClick={()=>{
-                  console.log("Hello")
-                }}>Send</Button>
+                  updateInfo()
+                }}>Claim</Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -100,7 +123,7 @@ export default function TypographyPage() {
       </>
       :
       <GridContainer>
-        {db.lostItem.map((item, id)=>
+        {data.foundItems.map((item, id)=>
         <>
           <GridItem xs={12} sm={6} md={3}>
               <Card onClick={()=> { 
@@ -109,15 +132,15 @@ export default function TypographyPage() {
                 console.log(id)
               }}>
                 <CardHeader color="primary">
-                  <h4 className={classes.cardTitleWhite}>{item.itemName}</h4>
+                  <h4 className={classes.cardTitleWhite}>{item.name}</h4>
                   <p className={classes.cardCategoryWhite}>
-                    {item.place}
+                    {item.foundLocation}
                   </p>
                 </CardHeader>
                 <CardBody>
-                  <img src={item.photo}></img>
+                  <img src={item.images[0]}></img>
                   <p>
-                  Location: {item.place}<br></br>
+                  Location: {item.foundLocation}<br></br>
                   Time: {item.foundTime}
                 </p>
                 </CardBody>
@@ -128,7 +151,7 @@ export default function TypographyPage() {
         )}
       </GridContainer>
     
-    }
+      }
     </>
   );
 }

@@ -12,7 +12,8 @@ import Login from "./Login.js";
 import Profile from "./Profile";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { USERS_QUERY } from "../../graphql";
-export default function Account() {
+export default function Account(props) {
+  console.log(props)
   const [login, setLogin] = useState(false);
   const [name, setName] = useState("");
   const { loading, error, data, refetch } = useQuery(USERS_QUERY, {

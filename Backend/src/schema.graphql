@@ -82,9 +82,7 @@ input updateFoundItemInput {
   _id: ID!
   name: String!
   isReturned: Boolean!
-  updatedReturnedState: Boolean!
-  foundTime: String!
-  founder: String!
+  updatedReturnedState: Boolean
 }
 
 input createLostItemInput {
@@ -102,9 +100,7 @@ input updateLostItemInput {
   _id: ID!
   name: String!
   isFound: Boolean!
-  updatedFoundState: Boolean!
-  lostTime: String!
-  loster: String!
+  updatedFoundState: Boolean
 }
 input login {
   name: String!
