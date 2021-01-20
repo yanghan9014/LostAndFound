@@ -1,5 +1,9 @@
-
-export { USERS_QUERY, MESSAGES_QUERY, LOGIN_QUERY } from "./queries";
+export {
+  USERS_QUERY,
+  MESSAGES_QUERY,
+  LOGIN_QUERY,
+  CHECKNOWUSER_QUERY,
+} from "./queries";
 export {
   CREATE_USER_MUTATION,
   CREATE_MESSAGE_MUTATION,
@@ -7,6 +11,6 @@ export {
   UPDATE_FOUNDITEM_MUTATION,
   CREATE_LOSTITEM_MUTATION,
   UPDATE_LOSTITEM_MUTATION,
+  CREATE_NOWUSER_MUTATION,
 } from "./mutations";
 export { MESSAGE_SUBSCRIPTION } from "./subscriptions";
-
