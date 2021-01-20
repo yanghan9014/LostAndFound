@@ -13,6 +13,7 @@ const USERS_QUERY = gql`
     }
   }
 `
+
 const MESSAGES_QUERY = gql`
   query messages($query: String) {
     messages(query: $query) {
@@ -21,13 +22,7 @@ const MESSAGES_QUERY = gql`
       body
     }
   }
-<<<<<<< HEAD
-}
 `
-=======
-`;
-
->>>>>>> 30875502a955e9bbbece55f8a41bf804aa7d65b9
 const FOUNDITEMS_QUERY = gql`
 	query foundItems($query: String){
 		foundItems(query:$query){
