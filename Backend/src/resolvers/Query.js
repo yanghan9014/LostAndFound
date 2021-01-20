@@ -3,13 +3,15 @@ const Query = {
     if (!args.query) {
       return await Message.find();
     }
-    return await Message.find({
+    let msg=await Message.find({
       $or: [{ senderName: args.query }, { receiverName: args.query }],
     });
+    if (msg===undefined) return null
+    else return msg
   },
 
   async users(parent, args, { User }, info) {
-    if (!args.query) {
+    if (args.query === "") {
       return await User.find();
     }
     return await User.find({ name: args.query });
@@ -27,7 +29,15 @@ const Query = {
       return await LostItem.find();
     }
     return await LostItem.find({ name: args.query });
-  }
+  },
+  async login(parent, args, { User }, info) {
+    let user = await User.find({
+      $and: [{ name: args.query.name }, { password: args.query.password }],
+    });
+    // console.log(user);
+    if (user.length === 0) return { Login: false };
+    else return { Login: true };
+  },
 };
 
 export { Query as default };

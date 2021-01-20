@@ -73,8 +73,11 @@ export default function Lost() {
   const sendInfo = useCallback(
     (e) => {
 
-      //if (!itemName || !lostLocation || !descriptions || !imageUploaded || !rewards) return
-
+      if (!itemName || !lostLocation || !descriptions || !imageUploaded || !rewards)
+      {
+        alert("Please fill in all entries")
+        return
+      }
       addLostItem({
         variables: {
           name: itemName,
@@ -170,7 +173,7 @@ export default function Lost() {
                 buttonText="Upload"
                 onChange={uploaded}
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={52428800}
+                maxFileSize={524288000}
                 label="upload one or more images of the item"
                 withPreview={true}
               />

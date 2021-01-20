@@ -1,27 +1,27 @@
-import { gql } from 'apollo-boost'
-
-export {USERS_QUERY, 
-	MESSAGES_QUERY, 
-	FOUNDITEMS_QUERY, 
-	LOSTITEMS_QUERY
-}
+import { gql } from "apollo-boost";
 
 const USERS_QUERY = gql`
-	query users{
-		name
-		email
-		messages
-	}
+  query users($query: String) {
+    users(query: $query) {
+      name
+      email
+      messages{
+        senderName
+        receiverName
+        body
+      }
+    }
+  }
 `
-
 const MESSAGES_QUERY = gql`
-	query messages{
-		senderName
-		receiverName
-		body
-	}
+  query messages($query: String) {
+    messages(query: $query){
+    senderName
+    receiverName
+    body
+  }
+}
 `
-
 const FOUNDITEMS_QUERY = gql`
 	query foundItems($query: String){
 		foundItems(query:$query){
@@ -35,7 +35,6 @@ const FOUNDITEMS_QUERY = gql`
 		}
 	}
 `
-
 const LOSTITEMS_QUERY = gql`
 	query lostItems($query: String){
 		lostItems(query:$query){
@@ -49,3 +48,17 @@ const LOSTITEMS_QUERY = gql`
 		}
 	}
 `
+const LOGIN_QUERY = gql`
+  query login($query: login!) {
+    login(query: $query) {
+      Login
+    }
+  }
+`;
+export {
+  USERS_QUERY,
+  MESSAGES_QUERY,
+  FOUNDITEMS_QUERY,
+  LOSTITEMS_QUERY,
+  LOGIN_QUERY,
+};

@@ -69,7 +69,11 @@ export default function Found() {
   const sendInfo = useCallback(
     (e) => {
 
-      if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) return
+      if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) 
+      {
+        alert("Please fill in all entries")
+        return
+      }
       console.log(imageUploaded)
       addFoundItem({
         variables: {
@@ -160,19 +164,23 @@ export default function Found() {
               </CardFooter>
             </Card>
           </GridItem>
+          <GridItem xs={12} sm={12} md={4}>
+          <Card>
+            <CardBody>
+              <ImageUploader
+                withIcon={true}
+                className="foundItem"
+                buttonText="Upload"
+                onChange={uploaded}
+                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                maxFileSize={524288000}
+                label="upload one or more images of the item"
+                withPreview={true}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
         </GridContainer>
-      </div>
-      <div>
-        <ImageUploader
-          withIcon={true}
-          className="foundItem"
-          buttonText="Upload"
-          onChange={uploaded}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={52428800}
-          label="upload one or more images of the item"
-          withPreview={true}
-        />
       </div>
     </>
   );

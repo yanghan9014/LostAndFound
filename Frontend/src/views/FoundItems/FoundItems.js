@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -18,14 +18,14 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 
 import {
-  FOUNDITEMS_QUERY
+  FOUNDITEMS_QUERY, UPDATE_FOUNDITEM_MUTATION
 } from '../../graphql'
 //import db from "../../assets/mockDB.js"
 /*import { Switch, Route, Redirect, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";*/
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
 //import { Redirect } from "react-router-dom";
 const useStyles = makeStyles(styles);
@@ -33,11 +33,30 @@ const useStyles = makeStyles(styles);
 export default function TypographyPage() {
   const [expand, setExpand] = useState(false)
   const [select, setSelect] = useState(-1)
-	const { loading, error, data } = useQuery(FOUNDITEMS_QUERY)
+  const { loading, error, data } = useQuery(FOUNDITEMS_QUERY)
+  const [updateFoundItem] = useMutation(UPDATE_FOUNDITEM_MUTATION)
   const classes = useStyles()
+
+  const updateInfo = useCallback(
+    (e) => {
+      const foundItem = data.foundItems.map((item, id)=>{
+        if(id === select){return item}})
+
+      updateFoundItem({
+        variables: {
+          _id: foundItem._id,
+          name: foundItem.name,
+          isFound: !foundItem.isFound
+        }
+      })
+
+      setSelect(-1);
+      setExpand(false);
+    }, [updateFoundItem, data, select]
+  )
   return (
     <>
-      {/*<Switch>
+      {console.log(data)/*<Switch>
         {db.lostItem.map((item, _id)=>{
           return(
           <Route path={`/${_id}`}>
@@ -48,7 +67,9 @@ export default function TypographyPage() {
       <Route path={`/FoundItems/1`}>
         {singleItem_display(1)}
       </Route>*/}
-      {(expand)?
+      {
+      (data === undefined)? console.log("data undefined") :
+      (expand)?
       <>
       <Button color="primary" onClick={()=>{
         setExpand(false)
@@ -74,15 +95,15 @@ export default function TypographyPage() {
                     Found Location:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.foundLocation}})
                     }<br></br>
-                    Found Time:  {/*data.foundItems.map((item, id)=>{
+                    Found Time:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.foundTime}})
-                    */ }<br></br>
+                    }<br></br>
                     Descriptions:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.descriptions}})
                     }<br></br><br></br>
-                    Finder:  {/*data.foundItems.map((item, id)=>{
+                    Finder:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.finder}})
-                    */}<br></br>
+                    }<br></br>
                     Finder contact:  {data.foundItems.map((item, id)=>{
                       if(id === select){return item.email}})
                     }<br></br>
@@ -100,8 +121,8 @@ export default function TypographyPage() {
               </CardBody>
               <CardFooter>
                 <Button color="primary" onClick={()=>{
-                  console.log("Hello")
-                }}>Send</Button>
+                  updateInfo()
+                }}>Claim</Button>
               </CardFooter>
             </Card>
           </GridItem>
@@ -137,7 +158,7 @@ export default function TypographyPage() {
         )}
       </GridContainer>
     
-    }
+      }
     </>
   );
 }
