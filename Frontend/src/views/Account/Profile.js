@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -39,43 +39,69 @@ const useStyles = makeStyles(styles);
 
 export default function Profile(props) {
   const classes = useStyles();
+  const [receiver, setReceiver] = useState("");
+  const [text, setText] = useState("");
+  const [addMessage] = useMutation(CREATE_MESSAGE_MUTATION);
   console.log(props.data);
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { query: props.data.users[0].name },
-    errorPolicy: 'all' 
+    errorPolicy: "all",
   });
-  console.log(props.data)
+  console.log(props.data);
   // console.log(data);
-  const Messages =(message)=>{
-    if (message===null){  
-       return(
-       <GridItem xs={12} sm={12} md={4}>
+
+  const Messages = (message) => {
+    if (message === null) {
+      return (
+        <GridItem xs={12} sm={12} md={4}>
+          <Card plain>
+            <CardBody plain>
+              <p>No messages</p>
+            </CardBody>
+          </Card>
+        </GridItem>
+      );
+    }
+    return (
+      <GridItem xs={12} sm={12} md={4}>
         <Card plain>
           <CardBody plain>
-            <p >
-              No messages
-            </p>
+            <p>from:{message.senderName}</p>
+            <p>to:{message.receiverName}</p>
+            <p>message:{message.body}</p>
           </CardBody>
         </Card>
-      </GridItem>);
-    }
-    return (     
-    <GridItem xs={12} sm={12} md={4}>
-      <Card plain>
-        <CardBody plain>
-          <p >
-            from:{message.senderName}
-          </p>
-          <p >
-            to:{message.receiverName}
-          </p>
-          <p >
-            message:{message.body}
-          </p>
-        </CardBody>
-      </Card>
-    </GridItem>)
-  }
+      </GridItem>
+    );
+  };
+
+  const handleMessageSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log(receiver);
+      if (!receiver || !text) return;
+
+      addMessage({
+        variables: {
+          senderName: props.data.users[0].name,
+          receiverName: receiver,
+          body: text,
+        },
+      });
+      setReceiver("");
+      setText("");
+      alert("success");
+      refetch();
+    },
+    [addMessage, receiver, text]
+  );
+  const changeReceiver = (event) => {
+    console.log(event.target.value);
+    setReceiver(event.target.value);
+  };
+  const changeText = (event) => {
+    setText(event.target.value);
+  };
   return (
     <div>
       <GridContainer>
@@ -83,7 +109,9 @@ export default function Profile(props) {
           <Card>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Personal Page</h4>
-              <p className={classes.cardCategoryWhite}>You can send mails to others or check your mails here </p>
+              <p className={classes.cardCategoryWhite}>
+                You can send mails to others or check your mails here{" "}
+              </p>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -117,6 +145,8 @@ export default function Profile(props) {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    change={changeReceiver}
+                    value={receiver}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -126,20 +156,27 @@ export default function Profile(props) {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    change={changeText}
+                    value={text}
                   />
                 </GridItem>
                 <CardFooter>
-                  <Button color="primary">SEND</Button>
+                  <Button color="primary" onClick={handleMessageSubmit}>
+                    SEND
+                  </Button>
                 </CardFooter>
               </GridContainer>
               <GridContainer>
                 <h1>Mail Box</h1>
-                {data!==undefined ?data.messages.map((message)=>Messages(message)):<div></div>}
+                {data !== undefined ? (
+                  data.messages.map((message) => Messages(message))
+                ) : (
+                  <div></div>
+                )}
               </GridContainer>
             </CardBody>
           </Card>
         </GridItem>
-
       </GridContainer>
     </div>
   );
