@@ -1,3 +1,5 @@
+// import NowUsers from "../models/nowUsers";
+
 const Mutation = {
   createUser(parent, args, { User }, info) {
     const newUser = {
@@ -23,13 +25,17 @@ const Mutation = {
     return newFoundItem;
   },
   updateFoundItem(parent, args, { FoundItem }) {
-    const [id, name] = args.data;
-    const targetFoundItem = FoundItem.collection.find({ _id: id, name: name });
+    // const data = [...args.data];
+    const targetFoundItem = FoundItem.collection.find({ _id: args.data._id });
 
-    FoundItem.collection.findOneAndUpdate(targetFoundItem, {
-      isReturned: !targetFoundItem.isReturned,
-    });
-
+    FoundItem.collection.findOneAndUpdate(
+      { _id: { $eq: targetFoundItem._id } },
+      {
+        isReturned: !targetFoundItem.isReturned,
+      }
+    );
+    // targetFoundItem.isReturned = !targetFoundItem.isReturned;
+    // targetFoundItem.save();
     return targetFoundItem;
   },
   createLostItem(parent, args, { LostItem }) {
@@ -40,14 +46,19 @@ const Mutation = {
     return newLostItem;
   },
   updateLostItem(parent, args, { LostItem }) {
-    const [id, name] = args.data;
-    const targetLostItem = LostItem.collection.find({ _id: id, name: name });
-
-    FoundItem.collection.findOneAndUpdate(targetLostItem, {
-      isFound: !targetLostItem.isFound,
-    });
-
+    // const data = [...args.data];
+    const targetLostItem = LostItem.collection.find({ _id: args.data._id });
+    LostItem.collection.findOneAndUpdate(
+      { _id: { $eq: targetLostItem._id } },
+      {
+        isReturned: !targetLostItem.isReturned,
+      }
+    );
     return targetLostItem;
+  },
+  createNowUser(parent, args, { NowUsers }) {
+    new NowUsers({ user: args.data }).save();
+    return args.data;
   },
 };
 

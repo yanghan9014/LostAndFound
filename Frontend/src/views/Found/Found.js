@@ -12,10 +12,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImageUploader from "react-images-upload";
-import { useQuery, useMutation, query } from '@apollo/react-hooks'
-import {
-  CREATE_FOUNDITEM_MUTATION
-} from '../../graphql'
+import { useQuery, useMutation, query } from "@apollo/react-hooks";
+import { CREATE_FOUNDITEM_MUTATION } from "../../graphql";
 
 const styles = {
   cardCategoryWhite: {
@@ -56,21 +54,27 @@ export default function Found() {
 
   const changeFoundItemName = (event) => {
     setItemName(event.target.value);
-  }
+  };
   const changeFoundLocation = (event) => {
     setFoundLocation(event.target.value);
-  }
+  };
   const changeDescriptions = (event) => {
     setDescriptions(event.target.value);
-  }
+  };
   const changeCurrentLocation = (event) => {
     setCurrentLocation(event.target.value);
-  }
+  };
   const sendInfo = useCallback(
     (e) => {
-
-      if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) return
-      console.log(imageUploaded)
+      if (
+        !itemName ||
+        !foundLocation ||
+        !currentLocation ||
+        !descriptions ||
+        !imageUploaded
+      )
+        return;
+      console.log(imageUploaded);
       addFoundItem({
         variables: {
           name: itemName,
@@ -78,18 +82,25 @@ export default function Found() {
           currentLocation: currentLocation,
           descriptions: descriptions,
           images: imageUploaded,
-          isReturned: false
-        }
-      })
+          isReturned: false,
+        },
+      });
 
       setItemName("");
       setFoundLocation("");
       setCurrentLocation("");
       setDescriptions("");
       setImageUploaded("");
-
-    }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded]
-  )
+    },
+    [
+      addFoundItem,
+      itemName,
+      foundLocation,
+      currentLocation,
+      descriptions,
+      imageUploaded,
+    ]
+  );
 
   return (
     <>
@@ -115,6 +126,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeFoundItemName}
+                      value={itemName}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={3}>
@@ -125,6 +137,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeFoundLocation}
+                      value={foundLocation}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={3}>
@@ -135,6 +148,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeCurrentLocation}
+                      value={currentLocation}
                     />
                   </GridItem>
                 </GridContainer>
@@ -151,12 +165,15 @@ export default function Found() {
                         rows: 10,
                       }}
                       change={changeDescriptions}
+                      value={descriptions}
                     />
                   </GridItem>
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary" onClick={sendInfo}>Send</Button>
+                <Button color="primary" onClick={sendInfo}>
+                  Send
+                </Button>
               </CardFooter>
             </Card>
           </GridItem>

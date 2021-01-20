@@ -8,6 +8,7 @@ const Message = require("./models/message");
 const User = require("./models/user");
 const FoundItem = require("./models/foundItem");
 const LostItem = require("./models/lostItem");
+const NowUsers = require("./models/nowUsers");
 const mongoose = require("mongoose");
 
 if (!process.env.MONGO_URL) {
@@ -35,17 +36,24 @@ db.once("open", () => {
     typeDefs: "./src/schema.graphql",
     resolvers: {
       Query,
-      Mutation
+      Mutation,
       // Subscription,
     },
     context: {
       Message,
       User,
       LostItem,
-      FoundItem
+      FoundItem,
+      NowUsers,
     },
   });
-
+  server.applyMiddleware({
+    // app: WebApp.connectHandlers,
+    // path: '/graphql',
+    bodyParserConfig: {
+      limit: "100mb", // Your Limited Here
+    },
+  });
   server.start({ port: process.env.PORT | 4000 }, () => {
     console.log(`The server is up on port ${process.env.PORT | 4000}!`);
   });

@@ -4,6 +4,7 @@ type Query {
   foundItems(query: String): [FoundItem]!
   lostItems(query: String): [LostItem!]!
   login(query: login!): isUser!
+  checkNowUser(query: String): Boolean!
 }
 
 type Mutation {
@@ -13,6 +14,7 @@ type Mutation {
   updateFoundItem(data: updateFoundItemInput!): FoundItem!
   createLostItem(data: createLostItemInput!): LostItem!
   updateLostItem(data: updateLostItemInput!): FoundItem!
+  createNowUser(data: String!): String!
 }
 
 type User {
@@ -80,11 +82,6 @@ input createFoundItemInput {
 
 input updateFoundItemInput {
   _id: ID!
-  name: String!
-  isReturned: Boolean!
-  updatedReturnedState: Boolean!
-  foundTime: String!
-  founder: String!
 }
 
 input createLostItemInput {
@@ -100,11 +97,6 @@ input createLostItemInput {
 
 input updateLostItemInput {
   _id: ID!
-  name: String!
-  isFound: Boolean!
-  updatedFoundState: Boolean!
-  lostTime: String!
-  loster: String!
 }
 input login {
   name: String!
