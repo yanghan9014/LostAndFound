@@ -134,6 +134,11 @@ const UPDATE_LOSTITEM_MUTATION = gql`
     }
   }
 `;
+const CREATE_NOWUSER_MUTATION = gql`
+  mutation createNowUser($data: String!) {
+    createNowUser(data: $data)
+  }
+`;
 
 export {
   CREATE_USER_MUTATION,
@@ -142,4 +147,5 @@ export {
   UPDATE_FOUNDITEM_MUTATION,
   CREATE_LOSTITEM_MUTATION,
   UPDATE_LOSTITEM_MUTATION,
+  CREATE_NOWUSER_MUTATION,
 };

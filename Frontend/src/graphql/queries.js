@@ -58,10 +58,16 @@ const LOGIN_QUERY = gql`
     }
   }
 `;
+const CHECKNOWUSER_QUERY = gql`
+  query checkNowUser($query: String!) {
+    login(query: $query)
+  }
+`;
 export {
   USERS_QUERY,
   MESSAGES_QUERY,
   FOUNDITEMS_QUERY,
   LOSTITEMS_QUERY,
   LOGIN_QUERY,
+  CHECKNOWUSER_QUERY,
 };
