@@ -30,6 +30,12 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import { bugs, website, server } from "variables/general.js";
+import { useQuery } from '@apollo/react-hooks';
+import {
+  LOSTITEMS_QUERY,
+  FOUNDITEMS_QUERY
+} from '../../graphql'
+
 
 import {
   dailySalesChart,
@@ -38,7 +44,8 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-
+import HomeLost from "./HomeLost"
+import HomeFound from "./HomeFound"
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
@@ -47,27 +54,12 @@ export default function Dashboard() {
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Recently Lost</h4>
-              <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South"],
-                ]}
-              />
-            </CardBody>
-          </Card>
+          <HomeFound/>
         </GridItem>
+        <GridItem xs={12} sm={12} md={6}>
+          <HomeLost/>
+        </GridItem>
+        {/*
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning">
@@ -89,7 +81,7 @@ export default function Dashboard() {
               />
             </CardBody>
           </Card>
-        </GridItem>
+              </GridItem>*/}
       </GridContainer>
     </div>
   );

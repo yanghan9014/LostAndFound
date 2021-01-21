@@ -36,6 +36,8 @@ const CREATE_FOUNDITEM_MUTATION = gql`
     $descriptions: String!
     $images: [String]
     $isReturned: Boolean!
+    $foundTime: String!
+    $founder: String!
   ) {
     createFoundItem(
       data: {
@@ -45,6 +47,8 @@ const CREATE_FOUNDITEM_MUTATION = gql`
         descriptions: $descriptions
         images: $images
         isReturned: $isReturned
+        foundTime: $foundTime
+        founder: $founder
       }
     ) {
       _id
@@ -58,16 +62,10 @@ const CREATE_FOUNDITEM_MUTATION = gql`
 const UPDATE_FOUNDITEM_MUTATION = gql`
   mutation updateFoundItem(
     $_id: ID!
-    $name: String!
-    $isReturned: Boolean!
-    $updatedReturnedState: Boolean!
   ) {
-    createFoundItem(
+    updateFoundItem(
       data: {
         _id: $_id
-        name: $name
-        isReturned: $isReturned
-        updatedReturnedState: $updatedReturnedState
       }
     ) {
       _id
@@ -85,6 +83,8 @@ const CREATE_LOSTITEM_MUTATION = gql`
     $images: [String]
     $isFound: Boolean!
     $rewards: String!
+    $lostTime: String!
+    $loster: String!
   ) {
     createLostItem(
       data: {
@@ -94,6 +94,8 @@ const CREATE_LOSTITEM_MUTATION = gql`
         images: $images
         isFound: $isFound
         rewards: $rewards
+        lostTime: $lostTime
+        loster: $loster
       }
     ) {
       _id
@@ -107,16 +109,10 @@ const CREATE_LOSTITEM_MUTATION = gql`
 const UPDATE_LOSTITEM_MUTATION = gql`
   mutation updateLostItem(
     $_id: ID!
-    $name: String!
-    $isFound: Boolean!
-    $updatedFoundState: Boolean!
   ) {
     updateLostItem(
       data: {
         _id: $_id
-        name: $name
-        isFound: $isFound
-        updatedFoundState: $updatedFoundState
       }
     ) {
       _id

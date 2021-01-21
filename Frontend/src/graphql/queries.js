@@ -12,7 +12,7 @@ const USERS_QUERY = gql`
       }
     }
   }
-`;
+`
 
 const MESSAGES_QUERY = gql`
   query messages($query: String) {
@@ -22,30 +22,35 @@ const MESSAGES_QUERY = gql`
       body
     }
   }
-`;
-
+`
 const FOUNDITEMS_QUERY = gql`
-  query foundItems {
-    id
-    name
-    foundLocation
-    descriptions
-    images
-    isReturned
-  }
-`;
-
+	query foundItems($query: String){
+		foundItems(query:$query){
+			_id
+			name
+			foundLocation
+			currentLocation
+			descriptions
+			images
+			isReturned
+      foundTime
+      founder
+		}
+	}
+`
 const LOSTITEMS_QUERY = gql`
-  query lostItems {
-    id
-    name
-    lostLocation
-    descriptions
-    images
-    isFound
-    rewards
-  }
-`;
+	query lostItems($query: String){
+		lostItems(query:$query){
+			_id
+			name
+			lostLocation
+			descriptions
+			images
+			isFound
+			rewards
+		}
+	}
+`
 const LOGIN_QUERY = gql`
   query login($query: login!) {
     login(query: $query) {

@@ -63,7 +63,7 @@ const homeRoutes = [
     icon: Person,
     component: FoundSheet,
     layout: "/admin",
-  },
+  },/*
   {
     path: "/table",
     name: "Table List",
@@ -71,7 +71,7 @@ const homeRoutes = [
     icon: "content_paste",
     component: TableList,
     layout: "/admin",
-  },/*
+  },
   {
     path: "/typography",
     name: "Typography",
@@ -95,7 +95,7 @@ const homeRoutes = [
     icon: LibraryBooks,
     component: FoundItems,
     layout: "/admin",
-  },
+  },/*
   {
     path: "/icons",
     name: "Icons",
@@ -127,7 +127,7 @@ const homeRoutes = [
     icon: Language,
     component: RTLPage,
     layout: "/rtl",
-  },
+  }*/
   {
     path: "/account",
     name: "Account",

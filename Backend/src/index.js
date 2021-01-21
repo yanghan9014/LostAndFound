@@ -10,6 +10,7 @@ const FoundItem = require("./models/foundItem");
 const LostItem = require("./models/lostItem");
 const NowUsers = require("./models/nowUsers");
 const mongoose = require("mongoose");
+import bodyParser from 'body-parser';
 
 if (!process.env.MONGO_URL) {
   console.error("Missing MONGO_URL!!!");
@@ -54,7 +55,22 @@ db.once("open", () => {
       limit: "100mb", // Your Limited Here
     },
   });
+<<<<<<< HEAD
   server.start({ port: process.env.PORT | 4000 }, () => {
+=======
+  server.use(bodyParser.json({limit: '5mb'}))
+  const opts = {
+    port: process.env.PORT | 4000,
+    bodyParserOptions: { limit: "10mb", type: "application/graphql"},
+    uploads: {
+      maxFieldSize: 1000000000,
+      maxFileSize: 1000000000,
+    }
+  }
+
+  server.start(opts, () => {
+>>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
     console.log(`The server is up on port ${process.env.PORT | 4000}!`);
   });
 });
+

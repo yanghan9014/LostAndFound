@@ -38,6 +38,8 @@ const useStyles = makeStyles(styles);
 
 export default function Found() {
   const classes = useStyles();
+  const [founderName, setFounderName] = useState("");
+  const [foundTime, setFoundTime] = useState("");
   const [itemName, setItemName] = useState("");
   const [foundLocation, setFoundLocation] = useState("");
   const [currentLocation, setCurrentLocation] = useState("");
@@ -52,6 +54,12 @@ export default function Found() {
     setImageUploaded((state) => [...state, reader.result]);
   };
 
+  const changeFounderName = (event) => {
+    setFounderName(event.target.value);
+  };
+  const changeFoundTime = (event) => {
+    setFoundTime(event.target.value);
+  };
   const changeFoundItemName = (event) => {
     setItemName(event.target.value);
   };
@@ -65,17 +73,19 @@ export default function Found() {
     setCurrentLocation(event.target.value);
   };
   const sendInfo = useCallback(
-    (e) => {
+    async (e) => {
       if (
         !itemName ||
         !foundLocation ||
         !currentLocation ||
         !descriptions ||
         !imageUploaded
-      )
+      ) {
+        alert("Please fill in all entries");
         return;
+      }
       console.log(imageUploaded);
-      addFoundItem({
+      await addFoundItem({
         variables: {
           name: itemName,
           foundLocation: foundLocation,
@@ -83,6 +93,8 @@ export default function Found() {
           descriptions: descriptions,
           images: imageUploaded,
           isReturned: false,
+          foundTime: foundTime,
+          founder: founderName,
         },
       });
 
@@ -91,6 +103,7 @@ export default function Found() {
       setCurrentLocation("");
       setDescriptions("");
       setImageUploaded("");
+      window.location.reload();
     },
     [
       addFoundItem,
@@ -99,6 +112,8 @@ export default function Found() {
       currentLocation,
       descriptions,
       imageUploaded,
+      foundTime,
+      founderName,
     ]
   );
 
@@ -118,7 +133,17 @@ export default function Found() {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Your Name"
+                      id="founderName"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changeFounderName}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Item Name"
                       id="foundItemName"
@@ -129,7 +154,19 @@ export default function Found() {
                       value={itemName}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="When you found"
+                      id="foundTime"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      change={changeFoundTime}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Where you found"
                       id="foundLocation"
@@ -140,7 +177,7 @@ export default function Found() {
                       value={foundLocation}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Where is it now"
                       id="currentLocation"
@@ -177,19 +214,23 @@ export default function Found() {
               </CardFooter>
             </Card>
           </GridItem>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card>
+              <CardBody>
+                <ImageUploader
+                  withIcon={true}
+                  className="foundItem"
+                  buttonText="Upload"
+                  onChange={uploaded}
+                  imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                  maxFileSize={524288000}
+                  label="upload one or more images of the item"
+                  withPreview={true}
+                />
+              </CardBody>
+            </Card>
+          </GridItem>
         </GridContainer>
-      </div>
-      <div>
-        <ImageUploader
-          withIcon={true}
-          className="foundItem"
-          buttonText="Upload"
-          onChange={uploaded}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={52428800}
-          label="upload one or more images of the item"
-          withPreview={true}
-        />
       </div>
     </>
   );
