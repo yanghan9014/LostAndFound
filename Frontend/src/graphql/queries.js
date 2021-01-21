@@ -48,6 +48,8 @@ const LOSTITEMS_QUERY = gql`
 			images
 			isFound
 			rewards
+      lostTime
+      loster
 		}
 	}
 `

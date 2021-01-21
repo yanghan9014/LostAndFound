@@ -77,7 +77,7 @@ export default function TypographyPage() {
             <Card>
               <CardHeader color="primary">
                 <h4 className={classes.cardTitleWhite}>
-                  Is this what you've lost?
+                  Have you seen it?
                 </h4>
                 <p className={classes.cardCategoryWhite}>
                   
@@ -85,22 +85,24 @@ export default function TypographyPage() {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
+                    My name:  {data.lostItems[select].loster
+                    }<br></br>
                     Item name:  {data.lostItems[select].name
                     }<br></br>
                     Lost Location:  {data.lostItems[select].lostLocation
                     }<br></br>
                     Lost Time:  {data.lostItems[select].lostTime
                     }<br></br>
-                    Finder:  {data.lostItems[select].finder
-                    }<br></br>
-                    Finder contact:  {data.lostItems[select].email
+                    Descriptions:  {data.lostItems[select].descriptions
+                    }<br></br><br></br>
+                    Rewards if found:  {data.lostItems[select].rewards
                     }<br></br>
                   </GridItem>
 
-                  <GridItem  xs={12} sm={12} md={4}>
+                  <GridItem  xs={12} sm={12} md={6}>
                     <img src={data.lostItems[select].images[0]
-                    }></img>
+                    }  width="88%" height="88%"></img>
                     <br></br>
 
                   </GridItem>
@@ -109,9 +111,8 @@ export default function TypographyPage() {
               </CardBody>
               <CardFooter>
                 <Button color="primary" onClick={()=>{
-                  console.log("Hello")
-                  updateInfo()
-                }}>Claim</Button>
+                  setExpand(false)
+                }}>I found It!</Button>
               </CardFooter>
             </Card>
           </GridItem>}
@@ -134,10 +135,10 @@ export default function TypographyPage() {
                 </p>
               </CardHeader>
               <CardBody>
-                <img src={item.images[0]}></img>
+                <img src={item.images[0]} width="88%" height="66%"></img>
                 <p>
                 Location: {item.lostLocation}<br></br>
-                Time: {item.foundTime}
+                Time: {item.lostTime}
               </p>
               </CardBody>
             </Card>            

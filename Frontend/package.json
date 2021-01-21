@@ -1,7 +1,7 @@
 {
-  "name": "material-dashboard-react",
+  "name": "Lost And Found",
   "version": "1.9.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
+  "description": "Lost And Found",
   "private": false,
   "main": "dist/index.js",
   "dependencies": {

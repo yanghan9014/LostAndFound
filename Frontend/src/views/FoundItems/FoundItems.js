@@ -76,7 +76,7 @@ export default function TypographyPage() {
         <GridContainer>
           <GridItem xs={12} sm={12} md={8}>
             <Card>
-              <CardHeader color="primary">
+              <CardHeader color="warning">
                 <h4 className={classes.cardTitleWhite}>
                   Is this what you've lost?
                 </h4>
@@ -95,15 +95,13 @@ export default function TypographyPage() {
                     }<br></br>
                     Descriptions:  {data.foundItems[select].descriptions
                     }<br></br><br></br>
-                    Finder:  {data.foundItems[select].finder
-                    }<br></br>
-                    Finder contact:  {data.foundItems[select].email
+                    Finder:  {data.foundItems[select].founder
                     }<br></br>
                   </GridItem>
 
                   <GridItem  xs={12} sm={12} md={4}>
                     <img src={data.foundItems[select].images
-                    }/>
+                    } width="88%" height="88%"/>
                     <br></br>
 
                   </GridItem>
@@ -112,7 +110,7 @@ export default function TypographyPage() {
               </CardBody>
               <CardFooter>
                 <Button color="primary" onClick={()=>{
-                  updateInfo()
+                  setExpand(false)
                 }}>Claim</Button>
               </CardFooter>
             </Card>
@@ -129,14 +127,14 @@ export default function TypographyPage() {
                 setSelect(id)
                 console.log(id)
               }}>
-                <CardHeader color="primary">
+                <CardHeader color="warning">
                   <h4 className={classes.cardTitleWhite}>{item.name}</h4>
                   <p className={classes.cardCategoryWhite}>
                     {item.foundLocation}
                   </p>
                 </CardHeader>
                 <CardBody>
-                  <img src={item.images[0]}></img>
+                  <img src={item.images[0]} width="88%" height="66%"></img>
                   <p>
                   Location: {item.foundLocation}<br></br>
                   Time: {item.foundTime}

@@ -19,7 +19,7 @@ export default function FixedPlugin(props) {
   const handleClick = () => {
     props.handleFixedClick();
   };
-  return (
+  return (<></>/*
     <div
       className={classnames("fixed-plugin", {
         "rtl-fixed-plugin": props.rtlActive
@@ -176,7 +176,7 @@ export default function FixedPlugin(props) {
         </ul>
       </div>
     </div>
-  );
+  */);
 }
 
 FixedPlugin.propTypes = {

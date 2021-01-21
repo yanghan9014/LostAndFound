@@ -23,7 +23,7 @@ import avatar from "assets/img/faces/marc.jpg";
 import {
   CREATE_USER_MUTATION,
   LOGIN_QUERY,
-  CREATE_NOWUSER_MUTATION,
+  // CREATE_NOWUSER_MUTATION,
 } from "../../graphql";
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -56,7 +56,7 @@ export default function Login(props) {
   const [passWord, setPassWord] = useState("");
   const [email, setEmail] = useState("");
   const [addUser] = useMutation(CREATE_USER_MUTATION);
-  const [addNowUser] = useMutation(CREATE_NOWUSER_MUTATION);
+  // const [addNowUser] = useMutation(CREATE_NOWUSER_MUTATION);
   const { loading, error, data, refetch } = useQuery(LOGIN_QUERY, {
     variables: { query: { name: userName, password: passWord } },
   });
@@ -67,9 +67,9 @@ export default function Login(props) {
     if (data.login.Login) {
       props.changeLogin(true);
       props.changeName(userName);
-      await addNowUser({
-        variables: { data: userName },
-      });
+      // await addNowUser({
+      //   variables: { data: userName },
+      // });
     } else {
       setUserName("");
       setPassWord("");
@@ -89,9 +89,9 @@ export default function Login(props) {
           email: email,
         },
       });
-      addNowUser({
-        variables: userName,
-      });
+      // addNowUser({
+      //   variables: userName,
+      // });
       props.changeLogin(true);
       props.changeName(userName);
 
