@@ -12,10 +12,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImageUploader from "react-images-upload";
-import { useQuery, useMutation, query } from '@apollo/react-hooks'
-import {
-  CREATE_FOUNDITEM_MUTATION
-} from '../../graphql'
+import { useQuery, useMutation, query } from "@apollo/react-hooks";
+import { CREATE_FOUNDITEM_MUTATION } from "../../graphql";
 
 const styles = {
   cardCategoryWhite: {
@@ -58,31 +56,35 @@ export default function Found() {
 
   const changeFounderName = (event) => {
     setFounderName(event.target.value);
-  }
+  };
   const changeFoundTime = (event) => {
     setFoundTime(event.target.value);
-  }
+  };
   const changeFoundItemName = (event) => {
     setItemName(event.target.value);
-  }
+  };
   const changeFoundLocation = (event) => {
     setFoundLocation(event.target.value);
-  }
+  };
   const changeDescriptions = (event) => {
     setDescriptions(event.target.value);
-  }
+  };
   const changeCurrentLocation = (event) => {
     setCurrentLocation(event.target.value);
-  }
+  };
   const sendInfo = useCallback(
     async (e) => {
-
-      if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) 
-      {
-        alert("Please fill in all entries")
-        return
+      if (
+        !itemName ||
+        !foundLocation ||
+        !currentLocation ||
+        !descriptions ||
+        !imageUploaded
+      ) {
+        alert("Please fill in all entries");
+        return;
       }
-      console.log(imageUploaded)
+      console.log(imageUploaded);
       await addFoundItem({
         variables: {
           name: itemName,
@@ -92,9 +94,9 @@ export default function Found() {
           images: imageUploaded,
           isReturned: false,
           foundTime: foundTime,
-          founder: founderName
-        }
-      })
+          founder: founderName,
+        },
+      });
 
       setItemName("");
       setFoundLocation("");
@@ -102,8 +104,18 @@ export default function Found() {
       setDescriptions("");
       setImageUploaded("");
       window.location.reload();
-    }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded, foundTime, founderName]
-  )
+    },
+    [
+      addFoundItem,
+      itemName,
+      foundLocation,
+      currentLocation,
+      descriptions,
+      imageUploaded,
+      foundTime,
+      founderName,
+    ]
+  );
 
   return (
     <>
@@ -139,6 +151,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeFoundItemName}
+                      value={itemName}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -161,6 +174,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeFoundLocation}
+                      value={foundLocation}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
@@ -171,6 +185,7 @@ export default function Found() {
                         fullWidth: true,
                       }}
                       change={changeCurrentLocation}
+                      value={currentLocation}
                     />
                   </GridItem>
                 </GridContainer>
@@ -187,31 +202,34 @@ export default function Found() {
                         rows: 10,
                       }}
                       change={changeDescriptions}
+                      value={descriptions}
                     />
                   </GridItem>
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="primary" onClick={sendInfo}>Send</Button>
+                <Button color="primary" onClick={sendInfo}>
+                  Send
+                </Button>
               </CardFooter>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
-          <Card>
-            <CardBody>
-              <ImageUploader
-                withIcon={true}
-                className="foundItem"
-                buttonText="Upload"
-                onChange={uploaded}
-                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={524288000}
-                label="upload one or more images of the item"
-                withPreview={true}
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
+            <Card>
+              <CardBody>
+                <ImageUploader
+                  withIcon={true}
+                  className="foundItem"
+                  buttonText="Upload"
+                  onChange={uploaded}
+                  imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                  maxFileSize={524288000}
+                  label="upload one or more images of the item"
+                  withPreview={true}
+                />
+              </CardBody>
+            </Card>
+          </GridItem>
         </GridContainer>
       </div>
     </>

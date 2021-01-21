@@ -13,10 +13,8 @@ import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import ImageUploader from "react-images-upload";
-import { useQuery, useMutation, query } from '@apollo/react-hooks'
-import {
-  CREATE_LOSTITEM_MUTATION
-} from '../../graphql'
+import { useQuery, useMutation, query } from "@apollo/react-hooks";
+import { CREATE_LOSTITEM_MUTATION, CHECKNOWUSER_QUERY } from "../../graphql";
 
 //import avatar from "assets/img/faces/marc.jpg";
 
@@ -50,8 +48,22 @@ export default function Lost() {
   const [imageUploaded, setImageUploaded] = useState([]);
   const [descriptions, setDescriptions] = useState("");
   const [rewards, setRewards] = useState("");
-  const [addLostItem] = useMutation(CREATE_LOSTITEM_MUTATION)
+  const [addLostItem] = useMutation(CREATE_LOSTITEM_MUTATION);
+  const [user, setUser] = useState("");
+  const [lostTime, setLostTime] = useState("");
 
+  const { loading, error, data, refetch } = useQuery(CHECKNOWUSER_QUERY, {
+    variables: { query: user },
+  });
+  const handleUserIsIn = async () => {
+    await refetch();
+    // console.log(data);
+    if (data.checkNowUser) {
+      alert("success");
+    } else {
+      alert("Not valid user");
+    }
+  };
   const reader = new FileReader();
   const uploaded = async (pictureFiles, pictureDataURLs) => {
     await reader.readAsDataURL(pictureFiles[pictureFiles.length - 1]);
@@ -68,16 +80,22 @@ export default function Lost() {
   }
   const changeLostItemName = (event) => {
     setItemName(event.target.value);
-  }
+  };
   const changeLostLocation = (event) => {
     setLostLocation(event.target.value);
-  }
+  };
   const changeDescriptions = (event) => {
     setDescriptions(event.target.value);
-  }
+  };
   const changeRewards = (event) => {
     setRewards(event.target.value);
-  }
+  };
+  const changeUser = (event) => {
+    setUser(event.target.value);
+  };
+  const changeLostTime = (event) => {
+    setLostTime(event.target.value);
+  };
   const sendInfo = useCallback(
     async (e) => {
 
@@ -93,19 +111,33 @@ export default function Lost() {
           descriptions: descriptions,
           images: imageUploaded,
           isFound: false,
+<<<<<<< HEAD
+          rewards: rewards,
+          loster: user,
+          lostTime: lostTime,
+        },
+      });
+=======
           rewards:rewards,
           loster: losterName,
           lostTime: lostTime
         }
       })
+>>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
 
       setItemName("");
       setLostLocation("");
       setDescriptions("");
       setImageUploaded("");
+<<<<<<< HEAD
+    },
+    [addLostItem, itemName, lostLocation, descriptions, imageUploaded]
+  );
+=======
       window.location.reload();
     }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded, rewards, losterName, lostTime]
   )
+>>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
 
   return (
     <div>
@@ -139,6 +171,7 @@ export default function Lost() {
                       fullWidth: true,
                     }}
                     change={changeLostItemName}
+                    value={itemName}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -159,6 +192,31 @@ export default function Lost() {
                       fullWidth: true,
                     }}
                     change={changeLostLocation}
+                    value={lostLocation}
+                  />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    labelText="Who Lost"
+                    id="lostItemName"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    change={changeUser}
+                    value={user}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    labelText="When you lost"
+                    id="lostLocation"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    change={changeLostTime}
+                    value={lostTime}
                   />
                 </GridItem>
               </GridContainer>
@@ -171,9 +229,11 @@ export default function Lost() {
                       fullWidth: true,
                     }}
                     change={changeRewards}
+                    value={rewards}
                   />
                 </GridItem>
               </GridContainer>
+
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                   <CustomInput
@@ -187,12 +247,15 @@ export default function Lost() {
                       rows: 5,
                     }}
                     change={changeDescriptions}
+                    value={descriptions}
                   />
                 </GridItem>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" onClick={sendInfo}>Send</Button>
+              <Button color="primary" onClick={sendInfo}>
+                Send
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -205,7 +268,11 @@ export default function Lost() {
                 buttonText="Upload"
                 onChange={uploaded}
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+<<<<<<< HEAD
+                maxFileSize={52428800000}
+=======
                 maxFileSize={524288000}
+>>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
                 label="upload one or more images of the item"
                 withPreview={true}
               />

@@ -1,3 +1,5 @@
+// import NowUsers from "../models/nowUsers";
+
 const Mutation = {
   createUser(parent, args, { User }, info) {
     const newUser = {
@@ -51,7 +53,10 @@ const Mutation = {
 */
     return targetLostItem;
   },
-  
+  createNowUser(parent, args, { NowUsers }) {
+    new NowUsers({ user: args.data }).save();
+    return args.data;
+  },
 };
 
 export { Mutation as default };

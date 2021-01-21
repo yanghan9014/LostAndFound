@@ -3,11 +3,11 @@ const Query = {
     if (!args.query) {
       return await Message.find();
     }
-    let msg=await Message.find({
+    let msg = await Message.find({
       $or: [{ senderName: args.query }, { receiverName: args.query }],
     });
-    if (msg===undefined) return null
-    else return msg
+    if (msg === undefined) return null;
+    else return msg;
   },
 
   async users(parent, args, { User }, info) {
@@ -37,6 +37,12 @@ const Query = {
     // console.log(user);
     if (user.length === 0) return { Login: false };
     else return { Login: true };
+  },
+  async checkNowUser(parent, args, { NowUsers }, info) {
+    if ((await NowUsers.find().length) === 0) return false;
+    const arr = await NowUsers.find({ user: args.query });
+    if (arr.length === 0) return false;
+    else return true;
   },
 };
 
