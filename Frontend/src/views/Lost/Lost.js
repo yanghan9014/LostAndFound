@@ -79,14 +79,14 @@ export default function Lost() {
     setRewards(event.target.value);
   }
   const sendInfo = useCallback(
-    (e) => {
+    async (e) => {
 
       if (!losterName || !lostTime || !itemName || !lostLocation || !descriptions || !imageUploaded || !rewards)
       {
         alert("Please fill in all entries")
         return
       }
-      addLostItem({
+      await addLostItem({
         variables: {
           name: itemName,
           lostLocation: lostLocation,
@@ -103,6 +103,7 @@ export default function Lost() {
       setLostLocation("");
       setDescriptions("");
       setImageUploaded("");
+      window.location.reload();
     }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded, rewards, losterName, lostTime]
   )
 

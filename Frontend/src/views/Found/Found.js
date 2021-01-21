@@ -75,7 +75,7 @@ export default function Found() {
     setCurrentLocation(event.target.value);
   }
   const sendInfo = useCallback(
-    (e) => {
+    async (e) => {
 
       if (!itemName || !foundLocation || !currentLocation || !descriptions || !imageUploaded) 
       {
@@ -83,7 +83,7 @@ export default function Found() {
         return
       }
       console.log(imageUploaded)
-      addFoundItem({
+      await addFoundItem({
         variables: {
           name: itemName,
           foundLocation: foundLocation,
@@ -101,7 +101,7 @@ export default function Found() {
       setCurrentLocation("");
       setDescriptions("");
       setImageUploaded("");
-
+      window.location.reload();
     }, [addFoundItem, itemName, foundLocation, currentLocation, descriptions, imageUploaded, foundTime, founderName]
   )
 
