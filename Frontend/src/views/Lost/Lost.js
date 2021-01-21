@@ -179,28 +179,7 @@ export default function Lost() {
                 </GridItem>
               </GridContainer>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Who Lost"
-                    id="lostItemName"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    change={changeUser}
-                    value={user}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="When you lost"
-                    id="lostLocation"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    change={changeLostTime}
-                    value={lostTime}
-                  />
-                </GridItem>
+                
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
