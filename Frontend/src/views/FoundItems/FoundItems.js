@@ -38,18 +38,16 @@ export default function TypographyPage() {
   const classes = useStyles()
 
   const updateInfo = useCallback(
-    (e) => {
+    async (e) => {
       const foundItem = data.foundItems[select]
 
       console.log(foundItem)
-      updateFoundItem({
+      await updateFoundItem({
         variables: {
           _id: foundItem._id,
-          name: foundItem.name,
-          isReturned: foundItem.isReturned
         }
       })
-
+      console.log(foundItem)
       setSelect(-1);
       setExpand(false);
     }, [updateFoundItem, data, select]

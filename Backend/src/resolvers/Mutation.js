@@ -22,14 +22,14 @@ const Mutation = {
     FoundItem.collection.insert(newFoundItem);
     return newFoundItem;
   },
-  updateFoundItem(parent, args, { FoundItem }) {
-    const [id, name] = args.data;
-    const targetFoundItem = FoundItem.collection.find({ _id: id, name: name });
+  async updateFoundItem(parent, args, { FoundItem }) {
+    const {id} = args.data;
+    const targetFoundItem = await FoundItem.collection.find({ _id: id});
+    console.log(targetFoundItem)
+    targetFoundItem.isReturned = !targetFoundItem.isReturned
 
-    FoundItem.collection.findOneAndUpdate(targetFoundItem, {
-      isReturned: !targetFoundItem.isReturned,
-    });
-
+    FoundItem.collection.deleteOne({_id: id});
+    FoundItem.collection.insert(targetFoundItem)
     return targetFoundItem;
   },
   createLostItem(parent, args, { LostItem }) {
@@ -40,13 +40,15 @@ const Mutation = {
     return newLostItem;
   },
   updateLostItem(parent, args, { LostItem }) {
-    const [id, name] = args.data;
-    const targetLostItem = LostItem.collection.find({ _id: id, name: name });
+    const {id} = args.data;
+    const targetLostItem = LostItem.collection.find({ _id: id});
 
+    targetLostItem.isFound = !targetLostItem.isFound
+/*
     FoundItem.collection.findOneAndUpdate(targetLostItem, {
       isFound: !targetLostItem.isFound,
     });
-
+*/
     return targetLostItem;
   },
 };

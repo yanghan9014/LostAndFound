@@ -62,16 +62,10 @@ const CREATE_FOUNDITEM_MUTATION = gql`
 const UPDATE_FOUNDITEM_MUTATION = gql`
   mutation updateFoundItem(
     $_id: ID!
-    $name: String!
-    $isReturned: Boolean!
-    $updatedReturnedState: Boolean
   ) {
-    createFoundItem(
+    updateFoundItem(
       data: {
         _id: $_id
-        name: $name
-        isReturned: $isReturned
-        updatedReturnedState: $updatedReturnedState
       }
     ) {
       _id
@@ -115,16 +109,10 @@ const CREATE_LOSTITEM_MUTATION = gql`
 const UPDATE_LOSTITEM_MUTATION = gql`
   mutation updateLostItem(
     $_id: ID!
-    $name: String!
-    $isFound: Boolean!
-    $updatedFoundState: Boolean
   ) {
     updateLostItem(
       data: {
         _id: $_id
-        name: $name
-        isFound: $isFound
-        updatedFoundState: $updatedFoundState
       }
     ) {
       _id

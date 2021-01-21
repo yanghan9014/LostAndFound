@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -17,14 +17,14 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import {
-  LOSTITEMS_QUERY
+  LOSTITEMS_QUERY, UPDATE_LOSTITEM_MUTATION
 } from '../../graphql'
 //import db from "../../assets/mockDB.js"
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 //import { Redirect } from "react-router-dom";
 const useStyles = makeStyles(styles);
 
@@ -32,7 +32,24 @@ export default function TypographyPage() {
   const [expand, setExpand] = useState(false)
   const [select, setSelect] = useState(-1)
 	const { loading, error, data } = useQuery(LOSTITEMS_QUERY)
+  const [updateLostItem] = useMutation(UPDATE_LOSTITEM_MUTATION)
   const classes = useStyles()
+
+  const updateInfo = useCallback(
+    async (e) => {
+      const lostItem = data.lostItems[select]
+
+      console.log(lostItem)
+      await updateLostItem({
+        variables: {
+          _id: lostItem._id,
+        }
+      })
+      console.log(lostItem)
+      setSelect(-1);
+      setExpand(false);
+    }, [updateLostItem, data, select]
+  )
   return (
     <>
       {/*<Switch>
@@ -93,6 +110,7 @@ export default function TypographyPage() {
               <CardFooter>
                 <Button color="primary" onClick={()=>{
                   console.log("Hello")
+                  updateInfo()
                 }}>Claim</Button>
               </CardFooter>
             </Card>

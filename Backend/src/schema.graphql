@@ -12,7 +12,7 @@ type Mutation {
   createFoundItem(data: createFoundItemInput!): FoundItem!
   updateFoundItem(data: updateFoundItemInput!): FoundItem!
   createLostItem(data: createLostItemInput!): LostItem!
-  updateLostItem(data: updateLostItemInput!): FoundItem!
+  updateLostItem(data: updateLostItemInput!): LostItem!
 }
 
 type User {
@@ -80,9 +80,6 @@ input createFoundItemInput {
 
 input updateFoundItemInput {
   _id: ID!
-  name: String!
-  isReturned: Boolean!
-  updatedReturnedState: Boolean
 }
 
 input createLostItemInput {
@@ -98,9 +95,6 @@ input createLostItemInput {
 
 input updateLostItemInput {
   _id: ID!
-  name: String!
-  isFound: Boolean!
-  updatedFoundState: Boolean
 }
 input login {
   name: String!
