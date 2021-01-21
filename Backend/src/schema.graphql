@@ -13,12 +13,8 @@ type Mutation {
   createFoundItem(data: createFoundItemInput!): FoundItem!
   updateFoundItem(data: updateFoundItemInput!): FoundItem!
   createLostItem(data: createLostItemInput!): LostItem!
-<<<<<<< HEAD
   updateLostItem(data: updateLostItemInput!): FoundItem!
   createNowUser(data: String!): String!
-=======
-  updateLostItem(data: updateLostItemInput!): LostItem!
->>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
 }
 
 type User {

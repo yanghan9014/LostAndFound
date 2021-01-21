@@ -50,7 +50,6 @@ export default function Lost() {
   const [rewards, setRewards] = useState("");
   const [addLostItem] = useMutation(CREATE_LOSTITEM_MUTATION);
   const [user, setUser] = useState("");
-  const [lostTime, setLostTime] = useState("");
 
   const { loading, error, data, refetch } = useQuery(CHECKNOWUSER_QUERY, {
     variables: { query: user },
@@ -93,9 +92,6 @@ export default function Lost() {
   const changeUser = (event) => {
     setUser(event.target.value);
   };
-  const changeLostTime = (event) => {
-    setLostTime(event.target.value);
-  };
   const sendInfo = useCallback(
     async (e) => {
 
@@ -111,33 +107,19 @@ export default function Lost() {
           descriptions: descriptions,
           images: imageUploaded,
           isFound: false,
-<<<<<<< HEAD
-          rewards: rewards,
-          loster: user,
-          lostTime: lostTime,
-        },
-      });
-=======
           rewards:rewards,
           loster: losterName,
           lostTime: lostTime
         }
       })
->>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
 
       setItemName("");
       setLostLocation("");
       setDescriptions("");
       setImageUploaded("");
-<<<<<<< HEAD
-    },
-    [addLostItem, itemName, lostLocation, descriptions, imageUploaded]
-  );
-=======
       window.location.reload();
     }, [addLostItem, itemName, lostLocation, descriptions, imageUploaded, rewards, losterName, lostTime]
   )
->>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
 
   return (
     <div>
@@ -268,11 +250,7 @@ export default function Lost() {
                 buttonText="Upload"
                 onChange={uploaded}
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-<<<<<<< HEAD
                 maxFileSize={52428800000}
-=======
-                maxFileSize={524288000}
->>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
                 label="upload one or more images of the item"
                 withPreview={true}
               />

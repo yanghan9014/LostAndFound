@@ -1,3 +1,4 @@
+
 require("dotenv-defaults").config();
 import { GraphQLServer, PubSub } from "graphql-yoga";
 import Query from "./resolvers/Query";
@@ -8,7 +9,6 @@ const Message = require("./models/message");
 const User = require("./models/user");
 const FoundItem = require("./models/foundItem");
 const LostItem = require("./models/lostItem");
-const NowUsers = require("./models/nowUsers");
 const mongoose = require("mongoose");
 import bodyParser from 'body-parser';
 
@@ -37,27 +37,16 @@ db.once("open", () => {
     typeDefs: "./src/schema.graphql",
     resolvers: {
       Query,
-      Mutation,
+      Mutation
       // Subscription,
     },
     context: {
       Message,
       User,
       LostItem,
-      FoundItem,
-      NowUsers,
+      FoundItem
     },
   });
-  server.applyMiddleware({
-    // app: WebApp.connectHandlers,
-    // path: '/graphql',
-    bodyParserConfig: {
-      limit: "100mb", // Your Limited Here
-    },
-  });
-<<<<<<< HEAD
-  server.start({ port: process.env.PORT | 4000 }, () => {
-=======
   server.use(bodyParser.json({limit: '5mb'}))
   const opts = {
     port: process.env.PORT | 4000,
@@ -69,8 +58,6 @@ db.once("open", () => {
   }
 
   server.start(opts, () => {
->>>>>>> 3f6dc90c37ccfb87b6e4f22bfb0616216d89e58f
     console.log(`The server is up on port ${process.env.PORT | 4000}!`);
   });
 });
-
