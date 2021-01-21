@@ -18,6 +18,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import { useQuery } from '@apollo/react-hooks';
+import { useHistory } from "react-router-dom";
 import {
   LOSTITEMS_QUERY
 } from '../../graphql'
@@ -27,17 +28,18 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 export default function HomeLost() {
+  let history = useHistory();
   const classes = useStyles();
   const { loading, error, data, refetch } = useQuery(LOSTITEMS_QUERY)
 
   return (
     <div>{
       (data === undefined )? console.log("data undefined") :
-          <Card>
+          <Card onClick={()=>
+            history.push("LostItems")}>
             <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>Recently Lost</h4>
               <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
               </p>
             </CardHeader>
             <CardBody>

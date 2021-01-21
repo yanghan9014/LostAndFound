@@ -49,7 +49,7 @@ db.once("open", () => {
   });
   server.use(bodyParser.json({limit: '5mb'}))
   const opts = {
-    port: process.env.PORT | 4000,
+    port: process.env.PORT | 443,
     bodyParserOptions: { limit: "10mb", type: "application/graphql"},
     uploads: {
       maxFieldSize: 1000000000,
@@ -58,6 +58,6 @@ db.once("open", () => {
   }
 
   server.start(opts, () => {
-    console.log(`The server is up on port ${process.env.PORT | 4000}!`);
+    console.log(`The server is up on port ${process.env.PORT | 443}!`);
   });
 });

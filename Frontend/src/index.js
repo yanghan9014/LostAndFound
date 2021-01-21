@@ -35,12 +35,12 @@ import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 // Create an http link:
 const httpLink = new HttpLink({
-	uri: 'http://localhost:4000/'
+	uri: 'http://34.66.178.39:443/'
 })
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-	uri: `ws://localhost:4000/`,
+	uri: `ws://34.66.178.39:443/`,
 	options: { reconnect: true }
 })
 
