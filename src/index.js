@@ -28,10 +28,10 @@ import { getMainDefinition } from 'apollo-utilities'
 
 
 // core components
-import Admin from "layouts/Admin.js";
-import RTL from "layouts/RTL.js";
+import Admin from "./layouts/Admin.js";
+import RTL from "./layouts/RTL.js";
 
-import "assets/css/material-dashboard-react.css?v=1.9.0";
+import "./assets/css/material-dashboard-react.css?v=1.9.0";
 
 // Create an http link:
 const httpLink = new HttpLink({
