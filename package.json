@@ -42,7 +42,7 @@
     "mongoose": "^5.11.12"
   },
   "scripts": {
-    "start": "cd Backend && nodemon Backend/src/index.js --ext js,graphql --exec babel-node",
+    "start": "cd Backend && node Backend/src/index.js --ext js,graphql --exec babel-node",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
