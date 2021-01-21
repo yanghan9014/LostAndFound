@@ -24,20 +24,20 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
-import HomePage from "views/Home/Home.js";
-import LostSheet from "views/Lost/Lost.js";
-import FoundSheet from "views/Found/Found.js";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
-import LostItems from "views/LostItems/LostItems.js";
-import FoundItems from "views/FoundItems/FoundItems.js";
-import Icons from "views/Icons/Icons.js";
-import Maps from "views/Maps/Maps.js";
-import NotificationsPage from "views/Notifications/Notifications.js";
+import HomePage from "./views/Home/Home.js";
+import LostSheet from "./views/Lost/Lost.js";
+import FoundSheet from "./views/Found/Found.js";
+import TableList from "./views/TableList/TableList.js";
+import Typography from "./views/Typography/Typography.js";
+import LostItems from "./views/LostItems/LostItems.js";
+import FoundItems from "./views/FoundItems/FoundItems.js";
+import Icons from "./views/Icons/Icons.js";
+import Maps from "./views/Maps/Maps.js";
+import NotificationsPage from "./views/Notifications/Notifications.js";
 // core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
+import RTLPage from "./views/RTLPage/RTLPage.js";
 
-import Account from "views/Account/Account.js";
+import Account from "./views/Account/Account.js";
 
 const homeRoutes = [
   {
